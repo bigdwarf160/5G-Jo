@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>로그인</title>
+<link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <!------- 스프링 ------->
+    <div class="spring">
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+    </div>
+
+    <div class="logo"></div>
+
+    <h1 class="title">로그인</h1>
+
+    <!------- 로그인하면 main.html 이동 ------>
+    <form action="main.html">
+
+        <input type="text" placeholder="아이디">
+
+        <input type="password" placeholder="비밀번호">
+
+        <div class="options">
+
+            <label>
+                <input type="checkbox">
+                로그인 상태 유지
+            </label>
+
+            <!------- 비밀번호 재설정 이동 ------->
+            <a href="password.html">비밀번호 재설정</a>
+
+        </div>
+
+        <button type="submit" class="login-btn">로그인</button>
+
+    </form>
+
+    <p class="signup">
+        아직 회원이 아니신가요?
+        <!------- 회원가입 이동 ------>
+        <a href="signup.html">회원가입</a>
+    </p>
+
+</div>
+
+</body>
+</html>
