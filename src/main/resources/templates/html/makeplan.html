@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Make Plan - Study Planner</title>
+    <link rel="stylesheet" href="../../assets/styles/makeplan.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="notebook">
+        <div class="spring">
+            <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+            <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+            <div class="ring"></div>
+        </div>
+
+        <div class="main-content">
+            <div class="top-deco"></div>
+            <h1>목표 생성</h1>
+
+            <form id="planForm">
+                <div class="form-group">
+                    <label class="label-text">목표 이름</label>
+                    <input type="text" id="goalName" placeholder="목표 이름을 입력하세요">
+                </div>
+
+                <div class="form-group row-layout">
+                    <div class="field-item" style="flex: 1;">
+                        <label class="label-text">목표 유형</label>
+                        <select id="goalType">
+                            <option value="공부">공부</option>
+                            <option value="독서">독서</option>
+                        </select>
+                    </div>
+                    <div class="field-item" style="flex: 2;">
+                        <label class="label-text">총 공부량</label>
+                        <div class="input-combined">
+                            <input type="number" id="totalAmount" placeholder="예: 600">
+                            <select id="unit" class="unit-select">
+                                <option value="문제">문제</option>
+                                <option value="페이지">페이지</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row-layout">
+                    <div class="field-item" style="flex: 1.2;">
+                        <label class="label-text">기간 (시작일 ~ 종료일)</label>
+                        <div class="id-row">
+                            <input type="date" id="startDate">
+                            <input type="date" id="endDate">
+                        </div>
+                    </div>
+                    <div class="field-item" style="flex: 0.8;">
+                        <label class="label-text">하루 공부 시간</label>
+                        <select id="studyTime"></select>
+                    </div>
+                </div>
+
+                <div class="status-summary">
+                    <div class="summary-item">
+                        <span class="summary-label">총 분량</span>
+                        <p><span id="resTotal">0</span><small class="resUnitText">문제</small></p>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-item">
+                        <span class="summary-label">진행 기간</span>
+                        <p><span id="resPeriod">0</span>일</p>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-item">
+                        <span class="summary-label">하루 목표</span>
+                        <p><span id="resTime">0</span>시간</p>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-item highlight">
+                        <span class="summary-label">하루 권장</span>
+                        <p><span id="resDaily">0</span><small class="resUnitText">문제</small></p>
+                    </div>
+                </div>
+
+                <div class="preview-section">
+                    <h3 class="label-text">📅 계획 미리보기</h3>
+                    <ul id="planPreviewList" class="preview-list">
+                        <li class="empty-msg">기간과 분량을 입력하면 계획이 생성됩니다.</li>
+                    </ul>
+                </div>
+
+                <button type="submit" class="main-btn">생성하기</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../../assets/scripts/makeplan.js"></script>
+</body>
+</html>

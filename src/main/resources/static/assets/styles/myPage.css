@@ -1,0 +1,159 @@
+body{
+    font-family:Arial;
+    margin:0;
+    background:#f4f4f4;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+    background:white;
+}
+
+/* header */
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.headerBtn{
+    font-size:2rem;
+    color: #000000;
+    cursor:pointer;
+    border:none;
+    border-radius:50rem;
+    background:#4CAF5090;
+    padding:1.5rem 2.5rem;
+}
+
+/* top */
+
+.top{
+    display:flex;
+    gap:30px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.profile{
+    width:160px;
+    text-align:center;
+}
+
+.avatar{
+    width:120px;
+    height:120px;
+    border-radius:10px;
+    border:2px solid #ccc;
+    margin:auto;
+}
+
+.points{
+    margin-top:10px;
+}
+
+/* goals */
+
+.goals{
+    flex:1;
+}
+
+.goal{
+    border-bottom:1px solid #ddd;
+    padding:10px 0;
+}
+
+.goal-top{
+    display:flex;
+    justify-content:space-between;
+}
+
+.progress{
+    display:flex;
+    height:8px;
+    background:#ddd;
+    border-radius:4px;
+    margin-top:6px;
+}
+
+.progress-bar{
+    height:8px;
+    background:#4CAF50;
+    border-radius:4px;
+}
+
+/* calendar */
+
+.calendar-header{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    margin:20px 0;
+}
+
+.calendarBtn{
+    cursor:pointer;
+    border:none;
+    background:#ddd;
+    padding:6px 10px;
+}
+
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:5px;
+}
+
+.day-name{
+    text-align:center;
+    font-weight:bold;
+}
+
+.day{
+    border:1px solid #ddd;
+    height:90px;
+    padding:4px;
+    font-size:12px;
+    cursor:pointer;
+}
+
+.day-number{
+    font-weight:bold;
+}
+
+/* statistics */
+
+.stats{
+    margin-top:30px;
+}
+
+canvas{
+    max-width:100%;
+}
+
+/* mobile */
+
+@media(max-width:600px){
+
+    .container{
+        padding:10px;
+    }
+
+    .top{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .profile{
+        width:100%;
+    }
+
+    .day{
+        height:70px;
+    }
+
+}

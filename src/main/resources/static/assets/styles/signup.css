@@ -1,0 +1,146 @@
+body{
+    background:#FFF8E7;
+    font-family:"Noto Sans KR", sans-serif;
+}
+
+/* 노트 */
+.notebook{
+    width:460px;
+    margin:60px auto;
+    padding:40px 40px 40px 100px;
+    background:#FFF8E7;
+
+    background-image:linear-gradient(#f2e8d5 1px, transparent 1px);
+    background-size:100% 36px;
+
+    border-radius:8px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    position:relative;
+}
+
+/* 빨간 여백 줄 */
+.notebook::before{
+    content:"";
+    position:absolute;
+    left:80px;
+    top:0;
+    bottom:0;
+    width:2px;
+    background:#FFB6A4;
+}
+
+/* 스프링 */
+.spring{
+    position:absolute;
+    left:20px;
+    top:0;
+    bottom:0;
+    width:40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around;
+    align-items:center;
+}
+
+.ring{
+    width:26px;
+    height:26px;
+    border:3px solid #D3D3D3;
+    border-radius:50%;
+    background:#FFF8E7;
+}
+
+/* 제목 */
+h1{
+    text-align:center;
+    color:#5C4033;
+}
+
+.subtitle{
+    text-align:center;
+    color:#A85C4D;
+    margin-bottom:30px;
+}
+
+/* 입력 그룹 */
+.form-group{
+    margin-bottom:16px;
+}
+
+/* 입력창 */
+input{
+    width:100%;
+    padding:10px;
+    border:1px solid #C7D8C0;
+    border-radius:6px;
+    background:#FFFDF5;
+    color:#5C4033;
+    box-sizing:border-box;
+}
+
+/* 아이디 / 이메일 / 인증번호  */
+.id-row{
+    display:flex;
+    gap:10px;
+}
+
+/* 입력칸 */
+.id-row input{
+    flex:1;
+}
+
+/* 버튼 */
+.id-row button{
+    white-space:nowrap;
+}
+
+/* 버튼 스타일 */
+button{
+    padding:10px 14px;
+    border:none;
+    border-radius:6px;
+    background:#FFB67A;
+    color:#5C4033;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* 회원가입 버튼 */
+.signup-btn{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+}
+
+/* 성공 메시지 */
+.success{
+    color:#3A7D44;
+    font-size:14px;
+    margin-top:6px;
+}
+
+/* 오류 메시지 */
+.error{
+    color:#D9534F;
+    font-size:14px;
+    margin-top:6px;
+}
+
+/* 비밀번호 조건 */
+.password-rule{
+    font-size:13px;
+    color:#7A6F63;
+    margin-top:6px;
+}
+
+/* 로그인 */
+.login-link{
+    text-align:center;
+    margin-top:20px;
+}
+
+.login-link a{
+    color:#A85C4D;
+    text-decoration:none;
+    font-weight:bold;
+}

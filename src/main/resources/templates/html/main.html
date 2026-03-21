@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Dashboard - Study Planner</title>
+    <link rel="stylesheet" href="../../assets/styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="notebook">
+        <header class="main-header">
+            <div class="header-left"></div>
+            <div class="header-center">
+                <p class="user-welcome"><strong>OOO</strong>님! 반가워요</p>
+            </div>
+            <div class="header-right">
+                <div class="point-box">
+                    <span class="point-emoji">💰</span>
+                    <span id="userPoints" class="point-text">4583</span>
+                </div>
+                <div class="profile-box">
+                    <span class="profile-icon">👤</span>
+                </div>
+            </div>
+        </header>
+
+        <hr class="section-divider">
+
+        <section class="status-container">
+            <div class="risk-circle">
+                <div class="risk-inner">
+                    <span class="risk-label">위험도</span>
+                    <span id="riskStatus" class="risk-value">주의</span>
+                    <div class="risk-alert" id="riskAlert">!
+                        <div class="risk-tooltip" id="riskTooltip"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-card">
+                <div class="prog-item">
+                    <span class="prog-name">과목 1</span>
+                    <div class="bar-container"><div id="bar1" class="bar"></div></div>
+                    <span id="pct1" class="prog-num">0%</span>
+                </div>
+                <div class="prog-item">
+                    <span class="prog-name">과목 2</span>
+                    <div class="bar-container"><div id="bar2" class="bar"></div></div>
+                    <span id="pct2" class="prog-num">0%</span>
+                </div>
+                <div class="prog-item">
+                    <span class="prog-name">과목 3</span>
+                    <div class="bar-container"><div id="bar3" class="bar"></div></div>
+                    <span id="pct3" class="prog-num">0%</span>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <section class="todo-container">
+            <h2 class="todo-title">오늘 해야 할 일</h2>
+            <div id="todoListArea">
+                <div class="subject-group" data-subj-index="0">
+                    <div class="subj-header"><span class="subj-name">과목 1</span><span class="subj-score">목표 + 2점</span></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span>문제 30문제 풀기</span><div class="check-box"></div></li>
+                        <li class="task-item"><span>단어 10페이지 암기</span><div class="check-box"></div></li>
+                    </ul>
+                </div>
+                <div class="subject-group" data-subj-index="1">
+                    <div class="subj-header"><span class="subj-name">과목 2</span><span class="subj-score">목표 + 1점</span></div>
+                    <ul class="task-list"><li class="task-item"><span>문제집 5페이지 풀기</span><div class="check-box"></div></li></ul>
+                </div>
+                <div class="subject-group" data-subj-index="2">
+                    <div class="subj-header"><span class="subj-name">과목 3</span><span class="subj-score">목표 + 0점</span></div>
+                    <ul class="task-list"><li class="task-item"><span>기출 문제 1회분</span><div class="check-box"></div></li></ul>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <section class="card-news-eval">
+            <div class="eval-card">
+                <h2 class="eval-title">오늘의 나</h2>
+                <p class="eval-q">오늘 목표를 위해 얼마나 노력했나요?</p>
+                <div class="number-rating">
+                    <button class="num-btn" data-val="1">1</button>
+                    <button class="num-btn" data-val="2">2</button>
+                    <button class="num-btn" data-val="3">3</button>
+                    <button class="num-btn" data-val="4">4</button>
+                    <button class="num-btn" data-val="5">5</button>
+                </div>
+                <button id="saveEvalBtn" class="eval-submit-btn">평가 완료</button>
+                <div class="avg-display-box">
+                    <p class="avg-label">목표 전체 평균 집중도</p>
+                    <p class="avg-value"><span id="avgScore">0.0</span> <small>/ 5.0</small></p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="../../assets/scripts/main.js"></script>
+</body>
+</html>
