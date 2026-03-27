@@ -8,7 +8,8 @@ function checkId(){
 const id = document.getElementById("idInput").value;
 const msg = document.getElementById("idMessage");
 
-if(usedIds.includes(id)){
+// localStorage로 (임시 DB) 
+if(usedIds.includes(id) || localStorage.getItem(id)){
 msg.textContent="✗ 이미 사용중인 아이디입니다";
 msg.className="error";
 }else{
@@ -17,6 +18,9 @@ msg.className="success";
 }
 
 }
+
+// 인증: 임의로 인증번호 생성해서 넘어감//
+// 추후 백엔드 - 인증 
 
 /* 인증번호 보내기 */
 function sendCode(){
@@ -93,4 +97,42 @@ passwordCheckMessage.textContent="✗ 비밀번호가 일치하지 않습니다"
 passwordCheckMessage.className="error";
 }
 
+});
+
+/* 회원가입 */
+document.querySelector("form").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const id = document.getElementById("idInput").value;
+    const pw = document.getElementById("passwordInput").value;
+    const pwCheck = document.getElementById("passwordCheck").value;
+    const codeMsg = document.getElementById("codeMessage").textContent;
+
+    // 기존 + localStorage 체크
+    if(usedIds.includes(id) || localStorage.getItem(id)){
+        alert("이미 존재하는 아이디입니다.");
+        return;
+    }
+
+    if(!codeMsg.includes("완료")){
+        alert("이메일 인증을 완료해주세요.");
+        return;
+    }
+
+    if(pw !== pwCheck){
+        alert("비밀번호가 일치하지 않습니다.");
+        return;
+    }
+
+    const user = {
+        id: id,
+        password: pw
+    };
+
+    localStorage.setItem(id, JSON.stringify(user));
+
+    localStorage.setItem("loginUser", id);
+    
+    alert("회원가입 완료!");
+    location.href = "makeplan.html";
 });

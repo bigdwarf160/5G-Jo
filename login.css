@@ -1,23 +1,107 @@
 body{
     background:#FFF8E7;
     font-family:"Noto Sans KR", sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
-/*노트 디자인*/
-/* 노트 */
-.login-container{
+
+/* 왼쪽 이미지, 오른쪽 로그인 배치 */
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 가운데 정렬 */
+    gap: 60px;               /* 이미지와 로그인 사이 간격 */
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* 왼쪽 홍보 이미지, 슬라이더 */
+.promo{
+    width: 500px;
+    height: 600px;
+    border-radius: 12px;
+    flex-shrink: 0; 
+    position: relative; 
+    overflow: hidden;
+    background: #eee;
+
+    margin-left: -45px;
+}
+
+/* 슬라이드 이미지 */
+.promo-slider{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.promo-slider .slide{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.promo-slider .slide.active{
+    opacity: 1;
+}
+
+/* < > 버튼 */
+.promo-controls{
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.promo-controls button{
+    background: rgba(0,0,0,0.3);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.promo-controls button:hover{
+    background: rgba(0,0,0,0.5);
+}
+
+/* 로그인 박스 */
+.login-container {
     width:460px;
-    margin:60px auto;
+    margin:0;           
     padding:40px 40px 40px 100px;
     background:#FFF8E7;
-
-    /* 줄 */
     background-image:linear-gradient(#f2e8d5 1px, transparent 1px);
     background-size:100% 36px;
-
     border-radius:8px;
     box-shadow:0 8px 20px rgba(0,0,0,0.08);
     position:relative;
-}
+    flex-shrink: 0;
+
+    /* 로그인 박스 왼쪽으로 이동 */
+    transform: translateX(-60px); 
 
 /* 빨간 여백 줄 */
 .login-container::before{
@@ -30,7 +114,7 @@ body{
     background:#FFB6A4;
 }
 
-/* 스프링(왼쪽 구멍) */
+/* 스프링 */
 .spring{
     position:absolute;
     left:20px;
@@ -52,7 +136,7 @@ body{
     background:#FFF8E7;
 }
 
-/* 로고(추후에 로고 자리) */
+/* 로고 자리 */
 .logo{
     width:120px;
     height:60px;
@@ -94,20 +178,17 @@ input{
     margin-bottom:25px;
 }
 
-/* 체크박스 + 글자 가로 정렬 */
 .options label{
     display:flex;
     align-items:center;
     gap:8px;
 }
 
-/* 체크박스 크기 */
 .options input[type="checkbox"]{
     width:auto;
     margin:0;
 }
 
-/* 옵션 링크 */
 .options a{
     text-decoration:none;
     color:#A85C4D;
@@ -138,4 +219,5 @@ input{
     color:#A85C4D;
     text-decoration:none;
     font-weight:bold;
+}
 }

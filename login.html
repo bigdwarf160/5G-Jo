@@ -1,60 +1,83 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>로그인</title>
-<link rel="stylesheet" href="login.css">
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
 
-<div class="login-container">
+<div class="wrapper">
 
-    <!------- 스프링 ------->
-    <div class="spring">
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
+    <!------- 왼쪽 홍보 이미지 슬라이더 -------->
+    <div class="promo">
+    <div class="promo-slider">
+        <div class="slide active" style="background-image: url('img1.jpg');"></div>
+        <div class="slide" style="background-image: url('img2.jpg');"></div>
+        <div class="slide" style="background-image: url('img3.jpg');"></div>
     </div>
 
-    <div class="logo"></div>
+    <!-------- < > 버튼 -------->
+    <div class="promo-controls">
+        <button class="prev">&lt;</button>
+        <button class="next">&gt;</button>
+    </div>
+</div>
 
-    <h1 class="title">로그인</h1>
+    </div>
 
-    <!------- 로그인하면 main.html 이동 ------>
-    <form action="main.html">
+    <!------- 오른쪽 로그인 ------->
+    <div class="login-container">
 
-        <input type="text" placeholder="아이디">
-
-        <input type="password" placeholder="비밀번호">
-
-        <div class="options">
-
-            <label>
-                <input type="checkbox">
-                로그인 상태 유지
-            </label>
-
-            <!------- 비밀번호 재설정 이동 ------->
-            <a href="password.html">비밀번호 재설정</a>
-
+        <!------- 스프링 ------->
+        <div class="spring">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
         </div>
 
-        <button type="submit" class="login-btn">로그인</button>
+        <!------- 로고 ------->
+        <div class="logo"></div>
 
-    </form>
+        <!------- 제목 ------->
+        <h1 class="title">로그인</h1>
 
-    <p class="signup">
-        아직 회원이 아니신가요?
-        <!------- 회원가입 이동 ------>
-        <a href="signup.html">회원가입</a>
-    </p>
+        <!------- 로그인 폼 ------->
+        <form id="loginForm" action="main.html">
+
+            <input type="text" id="username" placeholder="아이디">
+            <input type="password" id="password" placeholder="비밀번호">
+
+            <div class="options">
+                <label>
+                    <input type="checkbox" id="keepLogin">
+                    로그인 상태 유지
+                </label>
+
+                <a href="password.html">비밀번호 재설정</a>
+            </div>
+
+            <button type="submit" class="login-btn">로그인</button>
+
+        </form>
+
+        <!------- 회원가입 ------->
+        <p class="signup">
+            아직 회원이 아니신가요?
+            <a href="signup.html">회원가입</a>
+        </p>
+
+    </div>
 
 </div>
+
+<!------- js 파일 연결 ------->
+<script src="login.js"></script>
 
 </body>
 </html>
