@@ -44,5 +44,25 @@
 
 </div>
 
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h3>목표 수정</h3>
+
+        <label>목표 이름</label>
+        <input type="text" id="editName">
+
+        <label>날짜</label>
+        <input type="date" id="editDate">
+
+        <label>공부 시간 (시간)</label>
+        <input type="number" id="editTime">
+
+        <div class="modal-buttons">
+            <button onclick="saveGoal()">저장</button>
+            <button onclick="closeModal()">취소</button>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

@@ -21,11 +21,11 @@ header{
 
 .headerBtn{
     font-size:2rem;
-    color: #000000;
+    color: #5C4033;
     cursor:pointer;
     border:none;
     border-radius:50rem;
-    background:#4CAF5090;
+    background:#FFB67A;
     padding:1.5rem 2.5rem;
 }
 
@@ -74,14 +74,14 @@ header{
 .progress{
     display:flex;
     height:8px;
-    background:#ddd;
+    background:#eee;
     border-radius:4px;
     margin-top:6px;
 }
 
 .progress-bar{
     height:8px;
-    background:#4CAF50;
+    background:#C5D1C3;
     border-radius:4px;
 }
 
@@ -156,4 +156,35 @@ canvas{
         height:70px;
     }
 
+}
+
+/*모달*/
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    width: 300px;
+    margin: 100px auto;
+    border-radius: 10px;
+}
+
+.modal input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
 }

@@ -1,12 +1,18 @@
 body{
     background:#FFF8E7;
     font-family:"Noto Sans KR", sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
 /* 노트 */
 .notebook{
     width:460px;
-    margin:60px auto;
+    margin:0;
     padding:40px 40px 40px 100px;
     background:#FFF8E7;
 
@@ -78,7 +84,7 @@ input{
     box-sizing:border-box;
 }
 
-/* 아이디 / 이메일 / 인증번호  */
+/* 아이디 / 이메일 / 인증번호 */
 .id-row{
     display:flex;
     gap:10px;

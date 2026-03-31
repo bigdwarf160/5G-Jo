@@ -1,3 +1,5 @@
+let currentEditIndex = null
+
 let goals=[
     {name:"과목1",progress:85},
     {name:"과목2",progress:18},
@@ -40,11 +42,18 @@ function renderGoals(){
 
 function editGoal(i){
 
-    let name=prompt("목표 수정",goals[i].name)
-    if(name) goals[i].name=name
+    currentEditIndex = i
 
-    renderGoals()
+    document.getElementById("editName").value = goals[i].name
+    document.getElementById("editDate").value = ""
+    document.getElementById("editTime").value = ""
 
+    document.getElementById("editModal").style.display = "block"
+
+}
+
+function closeModal(){
+    document.getElementById("editModal").style.display = "none"
 }
 
 function deleteGoal(i){
@@ -157,7 +166,7 @@ function updateChart(){
             datasets:[{
                 label:"공부시간",
                 data:hours,
-                backgroundColor:"#4CAF50"
+                backgroundColor:"#C5D1C3"
             }]
         }
 

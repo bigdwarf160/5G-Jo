@@ -1,67 +1,44 @@
+/* 기본 배경 및 폰트 */
 body {
     background-color: #FFF9E9;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     font-family: "Noto Sans KR", sans-serif;
+    min-height: 100vh;
 }
 
+/* 전체 화면 노트북 컨테이너 */
 .notebook {
-    width: 750px; 
-    background: #FFFDF5;
-    border-radius: 30px;
-    box-shadow: 0 15px 45px rgba(0,0,0,0.08);
-    position: relative;
-    padding: 60px 50px 60px 170px; 
+    width: 100%;
+    max-width: 1200px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 60px 50px;
     box-sizing: border-box;
+    background: #FFFDF5;
+    border-radius: 0px;
+    box-shadow: none;
+    position: relative;
     background-image: linear-gradient(#f1e6d0 2px, transparent 2px);
     background-size: 100% 45px;
-    min-height: 900px;
 }
 
-.notebook::before {
-    content: "";
-    position: absolute;
-    left: 150px;
-    top: 0; bottom: 0;
-    width: 2px;
-    background: #FFB6A4;
+/* 헤더 */
+h1 {
+    text-align: center;
+    color: #4B3621;
+    font-size: 30px;
+    margin-bottom: 40px;
 }
 
-.spring {
-    position: absolute;
-    left: 50px; top: 0; bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 40px 0;
-}
-
-.ring {
-    width: 50px; height: 50px;
-    border: 4px solid #D8D8D8;
-    border-radius: 50%;
-    background: #FFFDF5;
-}
-
-.top-deco {
-    width: 120px; height: 60px;
-    border: 2px solid #C5D1C3;
-    border-radius: 30px;
-    margin: 0 auto 40px;
-}
-
-h1 { text-align: center; color: #4B3621; font-size: 30px; margin-bottom: 40px; }
-
+/* 입력폼 스타일 */
 .form-group { margin-bottom: 25px; }
 .id-row, .row-layout { display: flex; gap: 20px; align-items: flex-end; }
 .input-combined { display: flex; gap: 10px; }
 .unit-select { flex: 0 0 120px; }
 
 input, select {
-    width: 100%; padding: 15px;
+    width: 100%;
+    padding: 15px;
     border: 1px solid #D1E1CF;
     border-radius: 12px;
     background: #FFFFFF;
@@ -71,12 +48,15 @@ input, select {
     color: #4B3621;
 }
 
-.label-text { 
-    display: block; font-size: 14px; color: #7A6F63; 
-    margin-bottom: 8px; font-weight: bold; 
+.label-text {
+    display: block;
+    font-size: 14px;
+    color: #7A6F63;
+    margin-bottom: 8px;
+    font-weight: bold;
 }
 
-/* 요약 박스 디자인 - 4칸 대응 */
+/* 요약 박스 */
 .status-summary {
     background: rgba(245, 183, 142, 0.08);
     border: 1.5px solid #F5B78E;
@@ -95,6 +75,7 @@ input, select {
 .summary-divider { width: 1px; height: 25px; background: #F5B78E; opacity: 0.4; }
 .summary-item.highlight p { color: #A85C4D; font-size: 22px; }
 
+/* 미리보기 / 리스트 */
 .preview-section { margin-top: 30px; padding-top: 20px; border-top: 2px dashed #f1e6d0; }
 .preview-list { list-style: none; padding: 0; margin: 15px 0; max-height: 250px; overflow-y: auto; }
 .preview-list li {
@@ -103,8 +84,9 @@ input, select {
     display: flex; justify-content: space-between;
 }
 .preview-list li strong { color: #A85C4D; }
-.empty-msg { text-align: center; color: #999; padding: 30px 0; border: none; }
+.empty-msg { text-align: center; color: #999; padding: 30px 0; }
 
+/* 버튼 */
 .main-btn {
     width: 100%; padding: 18px;
     background: #F5B78E;
@@ -113,4 +95,17 @@ input, select {
     font-weight: bold; font-size: 20px;
     cursor: pointer; margin-top: 40px;
     box-shadow: 0 5px 0 #E5A57A;
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+    .notebook { padding: 40px 30px; }
+    .main-btn { font-size: 18px; padding: 15px; }
+}
+
+@media (max-width: 768px) {
+    .notebook { padding: 30px 20px; }
+    .id-row, .row-layout { flex-direction: column; gap: 15px; }
+    .unit-select { width: 100%; }
+    .main-btn { font-size: 16px; padding: 12px; }
 }
