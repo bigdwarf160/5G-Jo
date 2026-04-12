@@ -1,4 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    // =============================
+    // 사용자 정보 가져오기 
+    // =============================
+    const currentUser = sessionStorage.getItem('userName') || localStorage.getItem('userName');
+
+    if (!currentUser) {
+        alert("로그인이 필요합니다.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const userKey = currentUser;
+
     const planForm = document.getElementById('planForm');
     const startDateInput = document.getElementById('startDate');
     const endDateInput = document.getElementById('endDate');
@@ -26,7 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 기본 시작일 설정
     startDateInput.value = new Date().toISOString().split('T')[0];
 
-    // 실시간 계산 및 미리보기 업데이트 
+    // =============================
+    // 실시간 계산 및 미리보기
+    // =============================
     function updatePlan() {
         const start = new Date(startDateInput.value);
         const end = new Date(endDateInput.value);
@@ -70,7 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 생성하기 버튼 클릭 시 데이터 저장 및 이동
+    // =============================
+    // 저장 
+    // =============================
     planForm.addEventListener('submit', (e) => {
         e.preventDefault(); 
 
@@ -82,19 +100,22 @@ document.addEventListener('DOMContentLoaded', () => {
             start: startDateInput.value,
             end: endDateInput.value,
             dailyTime: studyTimeSelect.value,
-            dailyAmount: resDaily.textContent
+            dailyAmount: parseInt(resDaily.textContent) 
         };
 
-        // 데이터가 비어있는지 체크
         if (!goalData.name || !goalData.total || goalData.total <= 0) {
             alert("목표 이름과 총 분량을 정확히 입력해 주세요!");
             return;
         }
+        
+        // user별 데이터 불러오기
+        let plans = JSON.parse(localStorage.getItem(`plans_${userKey}`)) || [];
 
-        // 로컬 스토리지에 'currentPlan'이라는 이름으로 저장
-        localStorage.setItem('currentPlan', JSON.stringify(goalData));
+        plans.push(goalData);
 
-        // main.html로 이동
+        // user별 저장
+        localStorage.setItem(`plans_${userKey}`, JSON.stringify(plans, null, 2));
+
         window.location.href = 'main.html';
     });
 

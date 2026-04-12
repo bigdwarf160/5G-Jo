@@ -1,25 +1,54 @@
 document.addEventListener('DOMContentLoaded', () => {
     // =============================
-    // 로그인 기능
+    // 로그인 
     // =============================
     const loginForm = document.getElementById('loginForm');
+    const keepLogin = document.getElementById('keepLogin'); // 체크박스
 
     loginForm.addEventListener('submit', function(event){
-        event.preventDefault(); // 실제 서버 호출 전까지 막기
+        event.preventDefault(); 
 
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        if (!username || !password) {
+            alert('아이디와 비밀번호를 입력해주세요.');
+            return;
+        }
 
         console.log('로그인 시도:', username, password);
 
-        // 테스트용: 로그인 성공 시 메인 페이지 이동 (임시)
+        if (keepLogin.checked) {
+    // 로그인 유지 (localStorage)
+    localStorage.setItem('loginKeep', 'true');
+    localStorage.setItem('userName', username);
+
+    // 세션 제거
+    sessionStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('userName');
+
+    } else {
+    // 일반 로그인 (sessionStorage)
+    sessionStorage.setItem('isLoggedIn', 'true');
+    sessionStorage.setItem('userName', username);
+
+    // 로컬 제거
+    localStorage.removeItem('loginKeep');
+    localStorage.removeItem('userName');
+    }
+
+        // =============================
+        // 메인 페이지 이동
+        // =============================
         window.location.href = 'main.html';
     });
 
-    // 홍보 이미지 슬라이더
+    // =============================
+    // 홍보 이미지 슬라이더 - 아직은 자리만
+    // =============================
     const slides = document.querySelectorAll('.promo-slider .slide');
-    const prevBtn = document.querySelector('.promo-slider .prev');
-    const nextBtn = document.querySelector('.promo-slider .next');
+    const prevBtn = document.querySelector('.promo-controls .prev');
+    const nextBtn = document.querySelector('.promo-controls .next');
     let currentSlide = 0;
 
     function showSlide(index) {
@@ -38,11 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
         showSlide(currentSlide);
     });
 
-    // 자동 슬라이드 
+    // 자동 슬라이드
     setInterval(() => {
         currentSlide = (currentSlide + 1) % slides.length;
         showSlide(currentSlide);
-    }, 5000); // 5초마다 자동 전환되도록!
+    }, 5000);
 
     // 초기 표시
     showSlide(currentSlide);

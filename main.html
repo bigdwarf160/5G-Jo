@@ -20,6 +20,7 @@
                 </div>
                 <div class="profile-box">
                     <span class="profile-icon">👤</span>
+                    <button id="logoutBtn">로그아웃</button>
                 </div>
             </div>
         </header>
@@ -36,55 +37,21 @@
                     </div>
                 </div>
             </div>
-            <div class="progress-card">
-                <div class="prog-item">
-                    <span class="prog-name">과목 1</span>
-                    <div class="bar-container"><div id="bar1" class="bar"></div></div>
-                    <span id="pct1" class="prog-num">0%</span>
-                </div>
-                <div class="prog-item">
-                    <span class="prog-name">과목 2</span>
-                    <div class="bar-container"><div id="bar2" class="bar"></div></div>
-                    <span id="pct2" class="prog-num">0%</span>
-                </div>
-                <div class="prog-item">
-                    <span class="prog-name">과목 3</span>
-                    <div class="bar-container"><div id="bar3" class="bar"></div></div>
-                    <span id="pct3" class="prog-num">0%</span>
-                </div>
+            <div id="progressCard" class="progress-card">
+                <!-- JS에서 진행률 바 생성 -->
             </div>
         </section>
 
         <hr class="section-divider">
 
-        <!------- 목표 D-Day 카드 섹션 ------->
         <section class="goal-container">
             <h2 class="goal-title">진행 중 목표 D-DAY🗓️</h2>
-            <ul id="goalList" class="goal-list">
-                <!------- js에서 목표와 D-Day를 렌더링 ------->
-            </ul>
+            <ul id="goalList" class="goal-list"></ul>
         </section>
 
         <section class="todo-container">
             <h2 class="todo-title">오늘 해야 할 일</h2>
-
-            <div id="todoListArea">
-                <div class="subject-group" data-subj-index="0">
-                    <div class="subj-header"><span class="subj-name">과목 1</span><span class="subj-score">목표 + 2점</span></div>
-                    <ul class="task-list">
-                        <li class="task-item"><span>문제 30문제</span><div class="check-box"></div></li>
-                        <li class="task-item"><span>단어 10페이지</span><div class="check-box"></div></li>
-                    </ul>
-                </div>
-                <div class="subject-group" data-subj-index="1">
-                    <div class="subj-header"><span class="subj-name">과목 2</span><span class="subj-score">목표 + 1점</span></div>
-                    <ul class="task-list"><li class="task-item"><span>문제 5페이지</span><div class="check-box"></div></li></ul>
-                </div>
-                <div class="subject-group" data-subj-index="2">
-                    <div class="subj-header"><span class="subj-name">과목 3</span><span class="subj-score">목표 + 0점</span></div>
-                    <ul class="task-list"><li class="task-item"><span>기출 문제 1회분</span><div class="check-box"></div></li></ul>
-                </div>
-            </div>
+            <div id="todoListArea"></div>
         </section>
 
         <hr class="section-divider">
@@ -109,8 +76,7 @@
         </section>
     </div>
 
-    <!------- 목표 생성 버튼: 화면 오른쪽 하단 고정 ------->
-    <button id="createGoalBtn" onclick="goToGoalPage()">+ 목표 생성하기</button>
+    <button id="createGoalBtn">+ 목표 생성하기</button>
 
     <script src="main.js"></script>
 </body>
