@@ -154,6 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    let modalShown = false;
+
     function updateUI() {
 
         let dangerList = [];
@@ -164,6 +166,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const total = totalVolumes[i] || 1;
             const done = completedVolumes[i] || 0;
             const pct = Math.round((done / total) * 100);
+
+            if (pct === 100 && !plan.completed && !modalShown) {
+                
+                modalShown = true; 
+
+                plan.completed = true;
+
+                document.getElementById('successMessage').textContent =
+                    `${plan.name} 목표를 완료했어요!`;
+                document.getElementById('successModal').style.display = 'flex'; 
+            }    
 
             const el = document.querySelector(
                 `.subject-group[data-subj-index="${i}"] .subj-score`
@@ -326,4 +339,14 @@ document.addEventListener('DOMContentLoaded', () => {
     updateUI();
     renderProgressBars();
     renderEvaluation();
+
+    const closeBtn = document.getElementById('closeModalBtn');
+
+if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+        document.getElementById('successModal').style.display = 'none';
+        modalShown = false;
+    });
+}
+
 });

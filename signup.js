@@ -2,11 +2,23 @@ const usedIds = ["user1","admin","test"];
 
 let emailCode = "";
 
+function isValidId(id){
+    const trimmed = id.trim();
+    const regex = /^[a-zA-Z0-9]{4,12}$/;
+    return regex.test(trimmed);
+}
+
 /* 아이디 중복확인 */
 function checkId(){
 
 const id = document.getElementById("idInput").value;
 const msg = document.getElementById("idMessage");
+
+ if(!isValidId(id)){
+        msg.textContent="✗ 아이디는 4~12자 영문/숫자만 가능합니다";
+        msg.className="error";
+        return;
+    }
 
 // localStorage로 (임시 DB) 
 if(usedIds.includes(id) || localStorage.getItem(id)){
@@ -103,10 +115,16 @@ passwordCheckMessage.className="error";
 document.querySelector("form").addEventListener("submit", function(e){
     e.preventDefault();
 
-    const id = document.getElementById("idInput").value;
+    const id = document.getElementById("idInput").value.trim();
     const pw = document.getElementById("passwordInput").value;
     const pwCheck = document.getElementById("passwordCheck").value;
     const codeMsg = document.getElementById("codeMessage").textContent;
+
+    if(!isValidId(id)) {
+    alert("아이디는 4~12자 영문/숫자만 가능합니다.");
+    return;
+
+    }
 
     // 기존 + localStorage 체크
     if(usedIds.includes(id) || localStorage.getItem(id)){

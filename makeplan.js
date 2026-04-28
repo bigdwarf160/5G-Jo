@@ -92,10 +92,27 @@ document.addEventListener('DOMContentLoaded', () => {
     planForm.addEventListener('submit', (e) => {
         e.preventDefault(); 
 
+        if (!startDateInput.value || !endDateInput.value) {
+            alert("시작일과 종료일을 입력해주세요.");
+            return;
+        }
+
+        if (end < start) {
+            alert("종료일은 시작일보다 늦어야 합니다.");
+            return;
+        }
+        
+        const totalValue = parseInt(totalAmountInput.value);
+
+        if (isNaN(totalValue) || totalValue <= 0) {
+            alert("총 분량은 1 이상 입력하세요.");
+            return;
+        }
+
         const goalData = {
             name: document.getElementById('goalName').value,
             type: document.getElementById('goalType').value,
-            total: totalAmountInput.value,
+            total: totalvalue,
             unit: unitSelect.value,
             start: startDateInput.value,
             end: endDateInput.value,
