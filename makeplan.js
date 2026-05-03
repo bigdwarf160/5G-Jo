@@ -5,13 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // =============================
     const currentUser = sessionStorage.getItem('userName') || localStorage.getItem('userName');
 
+    // 로그인 안 되어있으면 로그인 페이지로 이동
     if (!currentUser) {
         alert("로그인이 필요합니다.");
         window.location.href = "login.html";
         return;
     }
 
-    const userKey = currentUser;
+    const userKey = currentUser; // 사용자별 데이터 구분 키
 
     const planForm = document.getElementById('planForm');
     const startDateInput = document.getElementById('startDate');
@@ -37,11 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
         studyTimeSelect.appendChild(opt);
     }
 
-    // 기본 시작일 설정
+    // 기본 시작일 설정 (오늘)
     startDateInput.value = new Date().toISOString().split('T')[0];
 
     // =============================
-    // 실시간 계산 및 미리보기
+    // 계획 자동 계산 + 미리보기 : 추후 AI 교체
     // =============================
     function updatePlan() {
         const start = new Date(startDateInput.value);
@@ -54,13 +55,15 @@ document.addEventListener('DOMContentLoaded', () => {
         resTotal.textContent = total;
         resTime.textContent = (time % 1 === 0.5) ? time : Math.floor(time);
 
+        // 유효한 입력일 떄만 계산
         if (start && end && end >= start && total > 0) {
-            const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
-            const dailyAmount = Math.ceil(total / days);
+            const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1; // 총 기간(일수)
+            const dailyAmount = Math.ceil(total / days);  // 하루 분량
             
             resPeriod.textContent = days;
             resDaily.textContent = dailyAmount;
             
+            // 미리보기 리스트 생성
             previewList.innerHTML = '';
             let currentIdx = 1;
 
@@ -87,10 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =============================
-    // 저장 
+    // 계획 저장 
     // =============================
     planForm.addEventListener('submit', (e) => {
         e.preventDefault(); 
+
+        // 날짜 값 가져오기 
+        const start = new Date(startDateInput.value);
+        const end = new Date(endDateInput.value);
+
 
         if (!startDateInput.value || !endDateInput.value) {
             alert("시작일과 종료일을 입력해주세요.");
@@ -109,10 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // 목표 데이터 생성
         const goalData = {
             name: document.getElementById('goalName').value,
             type: document.getElementById('goalType').value,
-            total: totalvalue,
+            total: totalValue,
             unit: unitSelect.value,
             start: startDateInput.value,
             end: endDateInput.value,
@@ -125,18 +134,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // user별 데이터 불러오기
+        // 사용자별 데이터 불러오기
         let plans = JSON.parse(localStorage.getItem(`plans_${userKey}`)) || [];
 
         plans.push(goalData);
 
-        // user별 저장
+        // 사용자별 저장
         localStorage.setItem(`plans_${userKey}`, JSON.stringify(plans, null, 2));
 
         window.location.href = 'main.html';
     });
 
-    // 입력값 변경 시 실시간 반영
+    // 입력값 변경 시 실시간 업데이트
     [startDateInput, endDateInput, totalAmountInput, unitSelect, studyTimeSelect].forEach(el => {
         el.addEventListener('input', updatePlan);
     });
