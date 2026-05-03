@@ -1,178 +1,187 @@
 let currentEditIndex = null
 
-let goals=[
-    {name:"과목1",progress:85},
-    {name:"과목2",progress:18},
-    {name:"과목3",progress:41}
+// 공부 데이터
+const studyData = {
+    "2026-3-7": { math: 2 },
+    "2026-3-8": { math: 4 },
+    "2026-3-9": { math: 1 }
+}
+
+// 목표 데이터
+const goal = {
+    startDate: "2026-04-07",
+    period: 3,
+    targetHours: 3
+}
+
+let goals = [
+    {
+        name: "과목1",
+        targetHours: 2,   // 하루 목표 공부량
+        period: 7,        // 기간 (일)
+        startDate: "2026-03-01"
+    }
 ]
 
-let studyData=JSON.parse(localStorage.getItem("studyData"))||{}
+/* =======================
+   analyzeGoal 함수 (최상위)
+   ======================= */
+function analyzeGoal(goal) {
+    let failDays = []
 
-function renderGoals(){
+    let start = new Date(goal.startDate)
 
-    const box=document.getElementById("goals")
-    box.innerHTML=""
+    for (let i = 0; i < goal.period; i++) {
+        let d = new Date(start)
+        d.setDate(start.getDate() + i)
 
-    goals.forEach((g,i)=>{
+        let key = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`
+        let data = studyData[key] || {}
 
-        box.innerHTML+=`
-<div class="goal">
+        let total = 0
+        for (let sub in data) total += data[sub]
 
-<div class="goal-top">
-<span>${g.name}</span>
-
-<div>
-<button onclick="editGoal(${i})">✏</button>
-<button onclick="deleteGoal(${i})">🗑</button>
-</div>
-
-</div>
-
-<div class="progress">
-<div class="progress-bar" style="width:${g.progress}%"></div>
-</div>
-<div>진행률 : ${g.progress}%</div>
-
-</div>
-`
-
-    })
-
-}
-
-function editGoal(i){
-
-    currentEditIndex = i
-
-    document.getElementById("editName").value = goals[i].name
-    document.getElementById("editDate").value = ""
-    document.getElementById("editTime").value = ""
-
-    document.getElementById("editModal").style.display = "block"
-
-}
-
-function closeModal(){
-    document.getElementById("editModal").style.display = "none"
-}
-
-function deleteGoal(i){
-
-    goals.splice(i,1)
-    renderGoals()
-
-}
-
-/* calendar */
-
-let date=new Date()
-
-function renderCalendar(){
-
-    const year=date.getFullYear()
-    const month=date.getMonth()
-
-    document.getElementById("month").innerText=
-        `${year}년 ${month+1}월`
-
-    const first=new Date(year,month,1).getDay()
-    const last=new Date(year,month+1,0).getDate()
-
-    const cal=document.getElementById("calendar")
-
-    cal.innerHTML=""
-
-    const days=["월","화","수","목","금","토","일"]
-
-    days.forEach(d=>{
-        cal.innerHTML+=`<div class="day-name">${d}</div>`
-    })
-
-    let start=(first+6)%7
-
-    for(let i=0;i<start;i++){
-        cal.innerHTML+=`<div></div>`
+        if (total < goal.targetHours) failDays.push({ date: key, total })
     }
 
-    for(let d=1;d<=last;d++){
+    return failDays
+}
 
-        const key=`${year}-${month}-${d}`
-        const hours=studyData[key]||0
+/* =======================
+   목표 렌더링
+   ======================= */
+function renderGoals() {
+    const box = document.getElementById("goals")
+    box.innerHTML = ""
 
-        cal.innerHTML+=`
-<div class="day" onclick="addStudy('${key}')">
-<div class="day-number">${d}</div>
-<div>${hours}h</div>
+    goals.forEach((g, i) => {
+        box.innerHTML += `
+<div class="goal">
+  <div class="goal-top">
+    <span>${g.name}</span>
+    <div>
+      <button onclick="editGoal(${i})">✏</button>
+      <button onclick="deleteGoal(${i})">🗑</button>
+    </div>
+  </div>
+  <div class="progress">
+    <div class="progress-bar" style="width:${g.progress || 0}%"></div>
+  </div>
+  <div>진행률 : ${g.progress || 0}%</div>
 </div>
 `
+    })
+}
 
+/* =======================
+   캘린더 렌더링
+   ======================= */
+let date = new Date()
+
+function renderCalendar() {
+    const year = date.getFullYear()
+    const month = date.getMonth()
+
+    document.getElementById("month").innerText = `${year}년 ${month + 1}월`
+
+    const first = new Date(year, month, 1).getDay()
+    const last = new Date(year, month + 1, 0).getDate()
+
+    const cal = document.getElementById("calendar")
+    cal.innerHTML = ""
+
+    const days = ["월", "화", "수", "목", "금", "토", "일"]
+    days.forEach(d => cal.innerHTML += `<div class="day-name">${d}</div>`)
+
+    let start = (first + 6) % 7
+    for (let i = 0; i < start; i++) cal.innerHTML += `<div></div>`
+
+    for (let d = 1; d <= last; d++) {
+        const key = `${year}-${month}-${d}`
+        const data = studyData[key] || {}
+
+        let total = 0
+        for (let sub in data) total += data[sub]
+
+        // 실패한 목표 계산
+        let failDays = analyzeGoal(goal)
+        let isFail = failDays.some(f => f.date === key)
+
+        cal.innerHTML += `
+        <div class="day ${isFail ? 'fail' : ''}" onclick="addStudy('${key}')">
+            <div class="day-number">${d}</div>
+            <div>${total}h ${isFail ? '❌' : ''}</div>
+        </div>
+        `
     }
 
     updateChart()
-
 }
 
-function addStudy(key){
+/* =======================
+   공부시간 입력
+   ======================= */
+function addStudy(key) {
+    let time = prompt("공부시간 (시간)")
+    if (!time) return
 
-    let time=prompt("공부시간 (시간)")
-    if(!time)return
+    const subject = goals[0].name
+    if (!studyData[key]) studyData[key] = {}
 
-    studyData[key]=(studyData[key]||0)+Number(time)
-
-    localStorage.setItem("studyData",
-        JSON.stringify(studyData))
+    studyData[key][subject] = (studyData[key][subject] || 0) + Number(time)
+    localStorage.setItem("studyData", JSON.stringify(studyData))
 
     renderCalendar()
-
 }
 
-function changeMonth(n){
-
-    date.setMonth(date.getMonth()+n)
+/* =======================
+   달 이동
+   ======================= */
+function changeMonth(n) {
+    date.setMonth(date.getMonth() + n)
     renderCalendar()
-
 }
 
-/* chart */
-
+/* =======================
+   차트 업데이트
+   ======================= */
 let chart
+function updateChart() {
+    let days = []
+    let hours = []
 
-function updateChart(){
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    const last = new Date(year, month + 1, 0).getDate()
 
-    let days=[]
-    let hours=[]
-
-    const year=date.getFullYear()
-    const month=date.getMonth()
-
-    const last=new Date(year,month+1,0).getDate()
-
-    for(let d=1;d<=last;d++){
-
-        let key=`${year}-${month}-${d}`
+    for (let d = 1; d <= last; d++) {
+        let key = `${year}-${month}-${d}`
         days.push(d)
-        hours.push(studyData[key]||0)
 
+        let dayTotal = 0
+        if (studyData[key]) {
+            for (let sub in studyData[key]) dayTotal += studyData[key][sub]
+        }
+        hours.push(dayTotal)
     }
 
-    if(chart) chart.destroy()
+    if (chart) chart.destroy()
 
-    chart=new Chart(document.getElementById("chart"),{
-
-        type:"bar",
-
-        data:{
-            labels:days,
-            datasets:[{
-                label:"공부시간",
-                data:hours,
-                backgroundColor:"#C5D1C3"
+    chart = new Chart(document.getElementById("chart"), {
+        type: "bar",
+        data: {
+            labels: days,
+            datasets: [{
+                label: "공부시간",
+                data: hours,
+                backgroundColor: "#C5D1C3"
             }]
         }
-
     })
-
 }
 
+/* =======================
+   초기 실행
+   ======================= */
 renderGoals()
 renderCalendar()

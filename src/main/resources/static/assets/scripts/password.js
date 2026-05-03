@@ -4,11 +4,11 @@ const pwFeedback = document.getElementById("passwordFeedback"); // 조건 메시
 const checkMsg = document.getElementById("checkMsg"); // 일치 메시지
 
 function checkPassword() {
-    const rule = /^(?=.*[a-z])(?=.*[0-9]).{10,}$/; // 소문자+숫자 포함, 10자 이상 - 임시
+    const rule = /^(?=.*[a-z])(?=.*[0-9]).{10,}$/; // 소문자+숫자 포함, 10자 이상
 
-    // 조건 체크 
+    // 비밀번호 조건 체크
     if (pw.value === "") {
-        pwFeedback.textContent = ""; 
+        pwFeedback.textContent = "";
     } else if (!rule.test(pw.value)) {
         pwFeedback.textContent = "✗ 조건을 만족하지 않습니다"; // 바로 아래 줄 표시
         pwFeedback.style.color = "red";

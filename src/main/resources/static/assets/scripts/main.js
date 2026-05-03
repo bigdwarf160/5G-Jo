@@ -1,142 +1,267 @@
 document.addEventListener('DOMContentLoaded', () => {
+/// 테스트 코드 - 삭제 해야함 ///
+    const TEST_MODE = true;
 
-    // 초기 데이터 (임시)
-    const totalVolumes = [100, 100, 100];
-    let completedVolumes = [37, 44, 37];
-    let currentPoints = 4583;
+    if (TEST_MODE) {
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userName", "testUser");
 
-    const pointDisplay = document.getElementById('userPoints');
+        localStorage.setItem("plans_testUser", JSON.stringify([
+            {
+                name: "테스트과목",
+                total: 1,
+                dailyAmount: 1,
+                unit: "문제",
+                end: "2026-05-10",
+                completed: false
+            }
+        ]));
 
-    // 목표 생성 페이지 이동 (항상 보이게)
-    window.goToGoalPage = function(){
-        location.href = "makeplan.html";
+        localStorage.removeItem("hiddenGoals_testUser");
+    }
+/// 여기까지
+
+    // =============================
+    // 로그인
+    // =============================
+    const isLoggedInSession = sessionStorage.getItem('isLoggedIn') === 'true';
+    const userNameSession = sessionStorage.getItem('userName');
+
+    const isLoggedInLocal = localStorage.getItem('isLoggedIn') === 'true';
+    const userNameLocal = localStorage.getItem('userName');
+
+    let currentUser = null;
+
+    if (isLoggedInSession && userNameSession) {
+        currentUser = userNameSession;
+    } else if (isLoggedInLocal && userNameLocal) {
+        currentUser = userNameLocal;
+        sessionStorage.setItem('isLoggedIn', 'true');
+        sessionStorage.setItem('userName', currentUser);
     }
 
-    // 목표 D-Day 데이터 & 렌더링
-    const goals = [
-        { name: "과목 1", due: "2026-03-31" },
-        { name: "과목 2", due: "2026-05-17" },
-        { name: "과목 3", due: "2026-04-28" }
-    ];
-
-    function getDDay(dueDateStr) {
-        const today = new Date();
-        const dueDate = new Date(dueDateStr);
-        const diffTime = dueDate - today;
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-        if (diffDays > 0) return `D-${diffDays}`;
-        else if (diffDays === 0) return "D-Day";
-        else return `D+${Math.abs(diffDays)}`;
+    if (!currentUser) {
+        window.location.href = 'login.html';
+        return;
     }
 
+    const userKey = currentUser.trim();
+
+    document.querySelector('.user-welcome strong').textContent = currentUser;
+
+    // =============================
+    // 상태 변수
+    // =============================
+    let plans = JSON.parse(localStorage.getItem(`plans_${userKey}`)) || [];
+    let hiddenGoals = JSON.parse(localStorage.getItem(`hiddenGoals_${userKey}`)) || [];
+    hiddenGoals = hiddenGoals.map(Number);
+
+    let completedGoalIndex = null;
+    let modalShown = false;
+
+    const todoListArea = document.getElementById('todoListArea');
+    const goalList = document.getElementById('goalList');
+
+    const totalVolumes = [];
+    const completedVolumes = [];
+
+    const todayStr = new Date().toISOString().slice(0, 10);
+
+    let checkedToday = JSON.parse(localStorage.getItem(`checkedToday_${userKey}`)) || {};
+
+    // 날짜 변경 시 초기화
+    const lastDate = localStorage.getItem(`lastDate_${userKey}`);
+    if (lastDate !== todayStr) {
+        checkedToday = {};
+        localStorage.setItem(`lastDate_${userKey}`, todayStr);
+        localStorage.setItem(`checkedToday_${userKey}`, JSON.stringify(checkedToday));
+    }
+
+    // =============================
+    // 렌더 공통 함수 (핵심)
+    // =============================
+    function renderAll() {
+        renderTodos();
+        renderGoals();
+        updateUI();
+    }
+
+    // =============================
+    // 할 일 렌더
+    // =============================
+    function renderTodos() {
+
+        todoListArea.innerHTML = "";
+
+        if (plans.length === 0) {
+            todoListArea.innerHTML =
+                `<p style="padding:20px;">목표가 없습니다 😢<br>목표를 먼저 생성해주세요!</p>`;
+            return;
+        }
+
+        plans.forEach((plan, idx) => {
+
+            if (hiddenGoals.includes(idx)) return;
+
+            const subjDiv = document.createElement('div');
+            subjDiv.className = 'subject-group';
+            subjDiv.dataset.subjIndex = idx;
+
+            const header = document.createElement('div');
+            header.className = 'subj-header';
+            header.innerHTML = `
+                <span class="subj-name">${plan.name}</span>
+                <span class="subj-score">목표 + 0%</span>
+            `;
+
+            const ul = document.createElement('ul');
+            ul.className = 'task-list';
+
+            let doneCount = 0;
+
+            for (let i = 0; i < parseInt(plan.dailyAmount); i++) {
+
+                const li = document.createElement('li');
+                li.className = 'task-item';
+                li.innerHTML = `<span>${plan.unit} ${i + 1}</span><div class="check-box"></div>`;
+
+                if (checkedToday[idx]?.[i]) {
+                    li.classList.add('checked');
+                    doneCount++;
+                }
+
+                ul.appendChild(li);
+            }
+
+            subjDiv.appendChild(header);
+            subjDiv.appendChild(ul);
+            todoListArea.appendChild(subjDiv);
+
+            totalVolumes[idx] = parseInt(plan.total);
+            completedVolumes[idx] = doneCount;
+        });
+    }
+
+    // =============================
+    // 목표 렌더
+    // =============================
     function renderGoals() {
-        const goalList = document.getElementById('goalList');
+
         goalList.innerHTML = "";
 
-        goals.forEach(goal => {
+        plans.forEach((plan, idx) => {
+
+            if (hiddenGoals.includes(idx)) return;
+
             const li = document.createElement('li');
             li.className = "goal-item";
-            li.innerHTML = `<span class="goal-name">${goal.name}</span>
-                            <span class="goal-dday">${getDDay(goal.due)}</span>`;
+
+            const today = new Date();
+            const due = new Date(plan.end);
+            const diff = Math.ceil((due - today) / (1000 * 60 * 60 * 24));
+
+            const dday =
+                diff > 0 ? `D-${diff}` :
+                    diff === 0 ? "D-Day" :
+                        `D+${Math.abs(diff)}`;
+
+            li.innerHTML = `
+                <span class="goal-name">${plan.name}</span>
+                <span class="goal-dday">${dday}</span>
+            `;
+
             goalList.appendChild(li);
         });
     }
 
-    // 투두 체크 이벤트
-    const taskItems = document.querySelectorAll('.task-item');
-    taskItems.forEach((item) => {
-        item.addEventListener('click', () => {
-
-            const isChecked = item.classList.toggle('checked');
-
-            // 포인트 (+10 / -10)
-            currentPoints += isChecked ? 10 : -10;
-            pointDisplay.textContent = currentPoints;
-
-            // 진행률 (+5 / -5)
-            const subjIdx = item.closest('.subject-group').dataset.subjIndex;
-            completedVolumes[subjIdx] += isChecked ? 5 : -5;
-
-            updateUI();
-        });
-    });
-
+    // =============================
     // UI 업데이트
+    // =============================
     function updateUI() {
-        let dangerList = [];
+
         let totalPct = 0;
 
-        totalVolumes.forEach((total, i) => {
-            const pct = Math.min(100, Math.max(0,
-                Math.round((completedVolumes[i] / total) * 100)
-            ));
+        plans.forEach((plan, i) => {
 
-            document.getElementById(`bar${i+1}`).style.width = pct + '%';
-            document.getElementById(`pct${i+1}`).textContent = pct + '%';
+            const total = totalVolumes[i] || 1;
+            const done = completedVolumes[i] || 0;
+            const pct = Math.round((done / total) * 100);
 
-            if (pct < 40) dangerList.push(`과목 ${i+1}`);
+            if (pct === 100 && !plan.completed && !modalShown) {
+
+                modalShown = true;
+                completedGoalIndex = i;
+
+                document.getElementById('successMessage').textContent =
+                    `${plan.name} 목표를 완료했어요!`;
+
+                document.getElementById('successModal').style.display = 'flex';
+            }
+
+            const el = document.querySelector(
+                `.subject-group[data-subj-index="${i}"] .subj-score`
+            );
+
+            if (el) el.textContent = `목표 + ${pct}%`;
+
             totalPct += pct;
         });
-
-        const avg = totalPct / 3;
-        const status = document.getElementById('riskStatus');
-        const alertBtn = document.getElementById('riskAlert');
-        const tooltip = document.getElementById('riskTooltip');
-
-        // 위험도 표시
-        if (avg >= 75) {
-            status.textContent = "안전";
-            alertBtn.style.display = "none";
-        } else if (avg >= 40) {
-            status.textContent = "주의";
-            alertBtn.style.display = "flex";
-        } else {
-            status.textContent = "위험";
-            alertBtn.style.display = "flex";
-        }
-
-        // 위험 과목 표시
-        if (dangerList.length > 0) {
-            tooltip.innerHTML = `현재 <strong>${dangerList.join(", ")}</strong> 과목이 위험해요!`;
-        } else {
-            tooltip.innerHTML = `현재 <strong>전체적인 진행</strong>이 더뎌요!`;
-        }
     }
 
-    // 오늘의 나 평가
-    const numBtns = document.querySelectorAll('.num-btn');
-    let selectedRating = 0;
+    // =============================
+    // 체크 이벤트
+    // =============================
+    document.addEventListener('click', (e) => {
 
-    numBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            numBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            selectedRating = parseInt(btn.dataset.val);
-        });
-    });
+        if (e.target.classList.contains('check-box')) {
 
-    document.getElementById('saveEvalBtn').addEventListener('click', () => {
-        if (!selectedRating) {
-            alert("오늘의 노력을 숫자로 선택해주세요!");
-            return;
+            const li = e.target.closest('.task-item');
+            const subj = e.target.closest('.subject-group');
+
+            const subjIndex = parseInt(subj.dataset.subjIndex);
+            const itemIndex = Array.from(li.parentNode.children).indexOf(li);
+
+            li.classList.toggle('checked');
+
+            const isChecked = li.classList.contains('checked');
+
+            completedVolumes[subjIndex] += isChecked ? 1 : -1;
+
+            if (!checkedToday[subjIndex]) checkedToday[subjIndex] = {};
+            checkedToday[subjIndex][itemIndex] = isChecked;
+
+            localStorage.setItem(`checkedToday_${userKey}`, JSON.stringify(checkedToday));
+
+            renderAll();
         }
-
-        alert("평가가 저장되었습니다!");
-        document.getElementById('avgScore').textContent = selectedRating.toFixed(1);
     });
 
-    // 위험도 툴팁
-    document.getElementById('riskAlert').addEventListener('click', (e) => {
-        e.stopPropagation();
-        document.getElementById('riskTooltip').classList.toggle('show');
+    // =============================
+    // 모달 닫기
+    // =============================
+    document.getElementById('closeModalBtn')?.addEventListener('click', () => {
+
+        document.getElementById('successModal').style.display = 'none';
+        modalShown = false;
+
+        if (typeof completedGoalIndex === "number") {
+
+            plans[completedGoalIndex].completed = true;
+
+            if (!hiddenGoals.includes(completedGoalIndex)) {
+                hiddenGoals.push(completedGoalIndex);
+                localStorage.setItem(`hiddenGoals_${userKey}`, JSON.stringify(hiddenGoals));
+            }
+
+            completedGoalIndex = null;
+
+            renderAll();
+        }
     });
 
-    document.addEventListener('click', () => {
-        document.getElementById('riskTooltip').classList.remove('show');
-    });
-
+    // =============================
     // 초기 실행
-    updateUI();
-    renderGoals(); // 목표 D-Day 렌더링
+    // =============================
+    renderAll();
+
 });
