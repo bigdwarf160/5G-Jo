@@ -1,4 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
+/// 테스트 코드 - 삭제 해야함 ///
+    const TEST_MODE = true;
+
+    if (TEST_MODE) {
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userName", "testUser");
+
+        localStorage.setItem("plans_testUser", JSON.stringify([
+            {
+                name: "테스트과목",
+                total: 1,
+                dailyAmount: 1,
+                unit: "문제",
+                end: "2026-05-10",
+                completed: false
+            }
+        ]));
+
+        localStorage.removeItem("hiddenGoals_testUser");
+    }
+/// 여기까지
 
     // =============================
     // 로그인
