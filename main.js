@@ -1,26 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-/// 테스트 코드 - 삭제 해야함 ///
+/// 테스트 코드 - 추후 삭제 해야함 ///
 const TEST_MODE = true;
 
 if (TEST_MODE) {
 
-    localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("userName", "testUser");
+    // 기존 데이터 없을 때만 생성
+    if (!localStorage.getItem("plans_testUser")) {
 
-    localStorage.setItem("plans_testUser", JSON.stringify([
-        {
-            id: Date.now(),
-            name: "알고리즘 문제 풀이",
-            total: 10,
-            dailyAmount: 5,
-            unit: "문제",
-            end: "2026-05-07",
-            completed: false
-        }
-    ]));
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userName", "testUser");
 
-    localStorage.removeItem("hiddenGoals_testUser");
+        localStorage.setItem("plans_testUser", JSON.stringify([
+            {
+                id: Date.now(),
+                name: "알고리즘 문제 풀이",
+                total: 5,
+                dailyAmount: 5,
+                unit: "문제",
+                startDate: "2026-05-14",
+                end: "2026-05-20",
+                completed: false
+            }
+        ]));
+    }
 }
 /// 여기까지
 
@@ -61,6 +64,52 @@ if (TEST_MODE) {
     }
 
     // =============================
+    // JSON 안전 로드
+    // =============================
+    function loadJSON(key, defaultValue) {
+
+        try {
+
+            const data = localStorage.getItem(key);
+
+            return data
+                ? JSON.parse(data)
+                : defaultValue;
+
+        } catch (e) {
+
+            console.error(`${key} 데이터 오류`, e);
+
+            return defaultValue;
+        }
+    }
+
+    // =============================
+    // 회원 가입 후 최초 사용자 -> 목표 생성 페이지 이동
+    // =============================
+    const userKey = currentUser.trim();
+
+    let plans =
+        loadJSON(`plans_${userKey}`, []);
+
+    if (plans.length === 0) {
+
+        window.location.href = 'makeplan.html';
+        return;
+    }
+
+    // =============================
+    // 저장된 테마 적용
+    // =============================
+    const savedTheme =
+        localStorage.getItem(`theme_${userKey}`);
+
+    if (savedTheme) {
+
+        document.body.classList.add(savedTheme);
+    }
+
+    // =============================
     // 로그아웃
     // =============================
     document.getElementById('logoutBtn')?.addEventListener('click', () => {
@@ -89,12 +138,50 @@ if (TEST_MODE) {
     // =============================
     // 포인트
     // =============================
-    let currentPoints = 4583;
+    let currentPoints = Number(
+        localStorage.getItem(`points_${userKey}`)
+    );
 
-    document.getElementById('userPoints').textContent =
-        currentPoints + "점";
+    if (isNaN(currentPoints)) {
 
-    const userKey = currentUser.trim();
+        currentPoints = 0;
+
+        localStorage.setItem(
+            `points_${userKey}`,
+            currentPoints
+        );
+    }
+
+    function updatePointUI() {
+
+        const pointEl =
+            document.getElementById('userPoints');
+
+        if (pointEl) {
+
+            pointEl.textContent =
+                currentPoints + "점";
+        }
+    }
+
+    updatePointUI();
+
+    // =============================
+    // 포인트 지급
+    // =============================
+    function addPoints(amount) {
+
+        amount = Number(amount) || 0;
+
+        currentPoints += amount;
+
+        localStorage.setItem(
+            `points_${userKey}`,
+            currentPoints
+        );
+
+        updatePointUI();
+    }
 
     // =============================
     // 사용자 이름 출력
@@ -108,38 +195,20 @@ if (TEST_MODE) {
     }
 
     // =============================
-    // JSON 안전 로드
-    // =============================
-    function loadJSON(key, defaultValue) {
-
-        try {
-
-            const data = localStorage.getItem(key);
-
-            return data
-                ? JSON.parse(data)
-                : defaultValue;
-
-        } catch (e) {
-
-            console.error(`${key} 데이터 오류`, e);
-
-            return defaultValue;
-        }
-    }
-
-    // =============================
     // 상태 변수
     // =============================
-    let plans =
-        loadJSON(`plans_${userKey}`, []);
-
     plans.forEach(plan => {
 
         if (!plan.id) {
 
             plan.id =
                 Date.now() + Math.random();
+        }
+
+        if (!plan.startDate) {
+
+            plan.startDate =
+                new Date().toISOString().slice(0, 10);
         }
     });
 
@@ -154,7 +223,17 @@ if (TEST_MODE) {
     let checkedToday =
         loadJSON(`checkedToday_${userKey}`, {});
 
+    let progressData =
+        loadJSON(`progress_${userKey}`, {});
+
+    let countedTasks =
+        loadJSON(`countedTasks_${userKey}`, {});
+
+    let rewardedGoals =
+        loadJSON(`rewardedGoals_${userKey}`, []);
+
     let completedGoalIndex = null;
+
     let modalShown = false;
 
     const todoListArea =
@@ -172,9 +251,6 @@ if (TEST_MODE) {
     const closeModalBtn =
         document.getElementById('closeModalBtn');
 
-    // =============================
-    // 위험도 요소
-    // =============================
     const riskStatus =
         document.getElementById('riskStatus');
 
@@ -187,27 +263,19 @@ if (TEST_MODE) {
     const riskCircle =
         document.querySelector('.risk-circle');
 
-    // =============================
-    // 오늘의 나 평가 요소
-    // =============================
     const saveEvalBtn =
         document.getElementById('saveEvalBtn');
 
     const avgScore =
         document.getElementById('avgScore');
 
-    // =============================
-    // 진행률 배열
-    // =============================
     const totalVolumes = [];
+
     const completedVolumes = [];
 
     const todayStr =
         new Date().toISOString().slice(0, 10);
 
-    // =============================
-    // 날짜 변경 시 초기화
-    // =============================
     const lastDate =
         localStorage.getItem(`lastDate_${userKey}`);
 
@@ -224,6 +292,22 @@ if (TEST_MODE) {
             `checkedToday_${userKey}`,
             JSON.stringify(checkedToday)
         );
+    }
+
+    // =============================
+    // 포인트 클릭 -> 테마 이동 (추가)
+    // =============================
+    const pointBox =
+        document.querySelector('.point-box');
+
+    if (pointBox) {
+
+        pointBox.style.cursor = "pointer";
+
+        pointBox.addEventListener('click', () => {
+
+            window.location.href = "theme.html";
+        });
     }
 
     // =============================
@@ -249,21 +333,28 @@ if (TEST_MODE) {
 
         todoListArea.innerHTML = "";
 
-        if (plans.length === 0) {
+        const visiblePlans = plans
+            .map((plan, index) => ({plan, index}))
+            .filter(item =>
+                !hiddenGoals.includes(item.plan.id)
+            );
+
+        if (visiblePlans.length === 0) {
 
             todoListArea.innerHTML = `
-                <p style="padding:20px;">
-                    현재 등록된 목표가 없습니다 😢<br>
-                    목표를 먼저 생성해주세요!
+                <p style="
+                    padding:20px;
+                    text-align:center;
+                ">
+                    현재 모든 목표가 완료되었습니다.<br>
+                    새로운 목표를 생성해주세요!
                 </p>
             `;
 
             return;
         }
 
-        plans.forEach((plan, idx) => {
-
-            if (hiddenGoals.includes(plan.id)) return;
+        visiblePlans.forEach(({plan, index}) => {
 
             const dailyAmount =
                 parseInt(plan.dailyAmount);
@@ -271,12 +362,27 @@ if (TEST_MODE) {
             const totalAmount =
                 parseInt(plan.total);
 
+            const startDate =
+                new Date(plan.startDate);
+
+            const today =
+                new Date();
+
+            const diffDays =
+                Math.floor(
+                    (today - startDate) /
+                    (1000 * 60 * 60 * 24)
+                );
+
+            const startNum =
+                diffDays * dailyAmount + 1;
+
             const subjDiv =
                 document.createElement('div');
 
             subjDiv.className = 'subject-group';
 
-            subjDiv.dataset.subjIndex = idx;
+            subjDiv.dataset.subjIndex = index;
 
             const header =
                 document.createElement('div');
@@ -298,9 +404,12 @@ if (TEST_MODE) {
 
             ul.className = 'task-list';
 
-            let doneCount = 0;
-
             for (let i = 0; i < dailyAmount; i++) {
+
+                const currentNum =
+                    startNum + i;
+
+                if (currentNum > totalAmount) break;
 
                 const li =
                     document.createElement('li');
@@ -309,17 +418,15 @@ if (TEST_MODE) {
 
                 li.innerHTML = `
                     <span>
-                        ${plan.unit} ${i + 1}
+                        ${plan.unit} ${currentNum}
                     </span>
 
                     <div class="check-box"></div>
                 `;
 
-                if (checkedToday[idx]?.[i]) {
+                if (checkedToday[index]?.[i]) {
 
                     li.classList.add('checked');
-
-                    doneCount++;
                 }
 
                 ul.appendChild(li);
@@ -331,13 +438,11 @@ if (TEST_MODE) {
 
             todoListArea.appendChild(subjDiv);
 
-            // =============================
-            // 진행률 계산용
-            // 오늘 체크 개수 / 전체 목표량
-            // =============================
-            totalVolumes[idx] = totalAmount;
+            totalVolumes[index] =
+                totalAmount;
 
-            completedVolumes[idx] = doneCount;
+            completedVolumes[index] =
+                progressData[plan.id] || 0;
         });
     }
 
@@ -350,7 +455,8 @@ if (TEST_MODE) {
 
         plans.forEach((plan) => {
 
-            if (hiddenGoals.includes(plan.id)) return;
+            if (hiddenGoals.includes(plan.id))
+                return;
 
             const li =
                 document.createElement('li');
@@ -584,22 +690,77 @@ if (TEST_MODE) {
                 Array.from(li.parentNode.children)
                 .indexOf(li);
 
-            li.classList.toggle('checked');
+            const plan =
+                plans[subjIndex];
 
-            const isChecked =
-                li.classList.contains('checked');
+            const planId =
+                plan.id;
 
-            if (!checkedToday[subjIndex]) {
+            const taskKey =
+                `${todayStr}_${itemIndex}`;
 
-                checkedToday[subjIndex] = {};
+            if (li.classList.contains('checked')) {
+
+                li.classList.remove('checked');
+
+                if (checkedToday[subjIndex]) {
+
+                    checkedToday[subjIndex][itemIndex] = false;
+                }
+
+            } else {
+
+                li.classList.add('checked');
+
+                if (!checkedToday[subjIndex]) {
+
+                    checkedToday[subjIndex] = {};
+                }
+
+                checkedToday[subjIndex][itemIndex] = true;
+
+                if (!progressData[planId]) {
+
+                    progressData[planId] = 0;
+                }
+
+                if (!countedTasks[planId]) {
+
+                    countedTasks[planId] = {};
+                }
+
+                if (!countedTasks[planId][taskKey]) {
+
+                    countedTasks[planId][taskKey] = true;
+
+                    if (!plan.completed) {
+
+                        progressData[planId]++;
+                    }
+                }
+
+                const total =
+                    parseInt(plan.total);
+
+                if (progressData[planId] > total) {
+
+                    progressData[planId] = total;
+                }
             }
-
-            checkedToday[subjIndex][itemIndex] =
-                isChecked;
 
             localStorage.setItem(
                 `checkedToday_${userKey}`,
                 JSON.stringify(checkedToday)
+            );
+
+            localStorage.setItem(
+                `progress_${userKey}`,
+                JSON.stringify(progressData)
+            );
+
+            localStorage.setItem(
+                `countedTasks_${userKey}`,
+                JSON.stringify(countedTasks)
             );
 
             renderAll();
@@ -609,6 +770,7 @@ if (TEST_MODE) {
     // =============================
     // 오늘의 나 평가
     // =============================
+
     let selectedScore = 0;
 
     document.querySelectorAll('.num-btn').forEach(btn => {
@@ -718,16 +880,30 @@ if (TEST_MODE) {
             typeof completedGoalIndex === "number"
         ) {
 
-            plans[completedGoalIndex].completed =
-                true;
+            const completedPlan =
+                plans[completedGoalIndex];
+
+            completedPlan.completed = true;
+
+            const goalId =
+                completedPlan.id;
+
+            if (!rewardedGoals.includes(goalId)) {
+
+                addPoints(100);
+
+                rewardedGoals.push(goalId);
+
+                localStorage.setItem(
+                    `rewardedGoals_${userKey}`,
+                    JSON.stringify(rewardedGoals)
+                );
+            }
 
             localStorage.setItem(
                 `plans_${userKey}`,
                 JSON.stringify(plans)
             );
-
-            const goalId =
-                plans[completedGoalIndex].id;
 
             if (!hiddenGoals.includes(goalId)) {
 
