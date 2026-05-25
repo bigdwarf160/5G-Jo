@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>테마 설정</title>
+
+    <link rel="stylesheet" href="theme.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="theme-container">
+
+        <header class="theme-header">
+
+            <h1>테마 설정 🎨</h1>
+
+            <p>
+                원하는 테마를 선택하세요!
+            </p>
+
+        </header>
+
+        <section class="theme-grid">
+
+            <!-- 기본 -->
+            <div class="theme-card" data-theme="default">
+
+                <div class="theme-preview default-preview"></div>
+
+                <h2>기본 테마</h2>
+
+                <p>
+                    기본 Study Planner
+                </p>
+
+            </div>
+
+            <!-- 다크 -->
+            <div class="theme-card" data-theme="dark">
+
+                <div class="theme-preview dark-preview"></div>
+
+                <h2>다크 테마</h2>
+
+                <p>
+                    어두운 화면으로 눈의 피로 감소 
+                </p>
+
+            </div>
+
+            <!-- 봄 -->
+            <div class="theme-card" data-theme="spring">
+
+                <div class="theme-preview spring-preview"></div>
+
+                <h2>봄 테마</h2>
+
+                <p>
+                    부드러운 봄의 핑크
+                </p>
+
+            </div>
+
+            <!-- 집중 -->
+            <div class="theme-card" data-theme="focus">
+
+                <div class="theme-preview focus-preview"></div>
+
+                <h2>집중 테마</h2>
+
+                <p>
+                    학습 집중을 위한 그린 
+                </p>
+
+            </div>
+
+        </section>
+
+        <div class="bottom-btn-area">
+
+            <button id="backBtn">
+                메인으로 돌아가기
+            </button>
+
+            <button id="buyBtn">
+                구매하기
+            </button>
+
+        </div>
+
+    </div>
+
+    <!--구매 모달-->
+    <div id="buyModal" class="modal">
+        <div class="modal-content">
+            <h2>구매 완료!</h2>
+            <p>테마 구매가 완료되었습니다</p>
+            <button id="closeModalBtn">확인</button>
+        </div>
+    </div>
+
+    <script src="theme.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,676 @@
+body{
+
+    background:#FFF8E7;
+
+    font-family:"Noto Sans KR", sans-serif;
+
+    margin:0;
+
+    padding:40px;
+
+    color:#5C4033;
+}
+
+/* 전체 노트 영역 */
+.theme-container{
+
+    width:90%;
+
+    max-width:1000px;
+
+    margin:0 auto;
+
+    padding:40px 40px 40px 100px;
+
+    background:#FFF8E7;
+
+    background-image:
+        linear-gradient(#f2e8d5 1px, transparent 1px);
+
+    background-size:100% 36px;
+
+    border-radius:12px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+
+    position:relative;
+}
+
+/* 빨간 줄 */
+.theme-container::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:80px;
+
+    top:0;
+
+    bottom:0;
+
+    width:2px;
+
+    background:#FFB6A4;
+}
+
+/* 스프링 */
+.theme-container::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:20px;
+
+    top:0;
+
+    bottom:0;
+
+    width:40px;
+
+    background:
+        radial-gradient(circle,
+        #D3D3D3 35%,
+        transparent 36%);
+
+    background-size:40px 60px;
+}
+
+/* 헤더 */
+.theme-header{
+
+    text-align:center;
+
+    margin-bottom:50px;
+}
+
+.theme-header h1{
+
+    margin-bottom:10px;
+
+    font-size:36px;
+
+    color:#5C4033;
+}
+
+.theme-header p{
+
+    color:#7A6253;
+
+    font-size:17px;
+}
+
+/* 테마 카드 그리드 */
+.theme-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap:30px;
+}
+
+/* 카드 */
+.theme-card{
+
+    background:#FFFDF5;
+
+    border:2px solid #E6D7BE;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    cursor:pointer;
+
+    transition:0.2s;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* 선택된 카드 기본값 */
+.theme-card.active{
+
+    border:3px solid #F5B78E;
+    background:#FFF4E8;
+}
+
+/* 다크 선택 */
+body.dark .theme-card.active{
+
+    border-color:#D5D7DC;
+    background:#F2F2F2;
+}
+
+/* 봄 선택 */
+body.spring .theme-card.active{
+
+    border-color:#FFB6C1;
+    background:#FFF0F5;
+}
+
+/* 집중 선택 */
+body.focus .theme-card.active{
+
+    border-color:#A8D5BA;
+    background:#F2F8F1;
+}
+
+/* 미리보기 */
+.theme-preview{
+
+    width:100%;
+
+    height:120px;
+
+    border-radius:14px;
+
+    margin-bottom:20px;
+}
+
+/* 기본 */
+.default-preview{
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFF8E7,
+            #FFEFD5
+        );
+}
+
+/* 다크 */
+.dark-preview{
+
+    background:
+        linear-gradient(
+            135deg,
+            #2D2D2D,
+            #1A1A1A
+        );
+}
+
+/* 봄 */
+.spring-preview{
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFF0F5,
+            #FFB6C1
+        );
+}
+
+/* 집중 */
+.focus-preview{
+
+    background:
+        linear-gradient(
+            135deg,
+            #E8F5E9,
+            #C8E6C9
+        );
+}
+
+/* 제목 */
+.theme-card h2{
+
+    margin:0 0 10px 0;
+
+    font-size:24px;
+
+    color:#5C4033;
+}
+
+/* 설명 */
+.theme-card p{
+
+    margin:0;
+
+    color:#7A6253;
+
+    line-height:1.5;
+}
+
+/* 버튼 영역 */
+.bottom-btn-area{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-top:50px;
+}
+
+/* 메인으로 버튼 */
+#backBtn{
+
+    padding:14px 30px;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.2s;
+}
+
+#backBtn:hover{
+
+    transform:scale(1.03);
+}
+
+/* 구매하기 버튼 */
+#buyBtn{
+
+    padding:14px 30px;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.2s;
+
+    margin-left:10px;
+}
+
+#buyBtn:hover{
+
+    transform:scale(1.03);
+}
+
+/* =========================
+   여기부터는 테마 적용
+========================= */
+
+/* 기본 */
+body.default {
+
+    background:#FFF8E7;
+    color:#5C4033;
+}
+
+body.default .theme-container{
+
+    background:#FFF8E7;
+
+    background-image:
+        linear-gradient(#f2e8d5 1px, transparent 1px);
+
+    background-size:100% 36px;
+}
+
+body.default .theme-container::before{
+
+    background:#FFB6A4;
+}
+
+body.default .theme-container::after{
+
+    background:
+        radial-gradient(circle,
+        #D3D3D3 35%,
+        transparent 36%);
+
+    background-size:40px 60px;
+}
+
+body.default #backBtn,
+body.default #buyBtn{
+
+    background:#F5B78E;
+    color:#4B3621;
+}
+
+body.default #backBtn:hover,
+body.default #buyBtn:hover{
+
+    background:#F5A95E;
+}
+
+/* 다크 */
+body.dark {
+
+    background:#1a1a1a;
+    color:#5C4033;
+}
+
+body.dark .theme-container{
+
+    background:#2F3136;
+
+    background-image:
+        linear-gradient(#44464D 1px, transparent 1px);
+
+    background-size:100% 36px;
+}
+
+body.dark .theme-container::before{
+
+    background:#6C7078;
+}
+
+body.dark .theme-container::after{
+
+    background:
+        radial-gradient(circle,
+        #BFC3CA 35%,
+        transparent 36%);
+
+    background-size:40px 60px;
+}
+
+body.dark #backBtn,
+body.dark #buyBtn{
+
+    background:#D5D7DC;
+    color:#242528;
+}
+
+body.dark #backBtn:hover,
+body.dark #buyBtn:hover{
+
+    background:#BFC3CA;
+}
+
+/* 봄 */
+body.spring {
+
+    background:#fff0f5;
+    color:#5C4033;
+}
+
+body.spring .theme-container{
+
+    background:#FFF9FB;
+
+    background-image:
+        linear-gradient(#FFD6DF 1px, transparent 1px);
+
+    background-size:100% 36px;
+}
+
+body.spring .theme-container::before{
+
+    background:#FFB6C1;
+}
+
+body.spring .theme-container::after{
+
+    background:
+        radial-gradient(circle,
+        #F6A6B8 35%,
+        transparent 36%);
+
+    background-size:40px 60px;
+}
+
+body.spring #backBtn,
+body.spring #buyBtn{
+
+    background:#FFB6C1;
+    color:#6B3F4A;
+}
+
+body.spring #backBtn:hover,
+body.spring #buyBtn:hover{
+
+    background:#FFA6B5;
+}
+
+/* 집중모드 */
+body.focus {
+
+    background:#e8f5e9;
+    color:#5C4033;
+}
+
+body.focus .theme-container{
+
+    background:#F8FCF7;
+
+    background-image:
+        linear-gradient(#D7E6D3 1px, transparent 1px);
+
+    background-size:100% 36px;
+}
+
+body.focus .theme-container::before{
+
+    background:#8FB996;
+}
+
+body.focus .theme-container::after{
+
+    background:
+        radial-gradient(circle,
+        #7F9B84 35%,
+        transparent 36%);
+
+    background-size:40px 60px;
+}
+
+body.focus #backBtn,
+body.focus #buyBtn{
+
+    background:#A8D5BA;
+    color:#35523C;
+}
+
+body.focus #backBtn:hover,
+body.focus #buyBtn:hover{
+
+    background:#8FC9A5;
+}
+
+/* 테마 선택 페이지 내부 글씨색 고정 */
+body.default .theme-container,
+body.dark .theme-container,
+body.spring .theme-container,
+body.focus .theme-container {
+
+    color:#5C4033;
+}
+
+body.default .theme-header h1,
+body.dark .theme-header h1,
+body.spring .theme-header h1,
+body.focus .theme-header h1,
+body.default .theme-card h2,
+body.dark .theme-card h2,
+body.spring .theme-card h2,
+body.focus .theme-card h2 {
+
+    color:#5C4033;
+}
+
+body.default .theme-header p,
+body.dark .theme-header p,
+body.spring .theme-header p,
+body.focus .theme-header p,
+body.default .theme-card p,
+body.dark .theme-card p,
+body.spring .theme-card p,
+body.focus .theme-card p {
+
+    color:#7A6253;
+}
+
+/* 모달 */
+.modal {
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,0.4);
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+}
+
+.modal-content {
+
+    background:#fff;
+
+    padding:25px 30px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+
+    width:280px;
+
+    color:#5C4033;
+}
+
+.modal-content h2 {
+
+    margin-bottom:10px;
+
+    color:#5C4033;
+}
+
+.modal-content p {
+
+    color:#7A6253;
+}
+
+.modal-content button {
+
+    margin-top:15px;
+
+    padding:10px 20px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:0.2s;
+}
+
+/* 기본 */
+body.default .modal-content button {
+
+    background:#F5B78E;
+    color:#4B3621;
+}
+
+body.default .modal-content button:hover {
+
+    background:#F5A95E;
+}
+
+/* 다크 */
+body.dark .modal-content button {
+
+    background:#D5D7DC;
+    color:#242528;
+}
+
+body.dark .modal-content button:hover {
+
+    background:#BFC3CA;
+}
+
+/* 봄 */
+body.spring .modal-content button {
+
+    background:#FFB6C1;
+    color:#6B3F4A;
+}
+
+body.spring .modal-content button:hover {
+
+    background:#FFA6B5;
+}
+
+/* 집중 */
+body.focus .modal-content button {
+
+    background:#A8D5BA;
+    color:#35523C;
+}
+
+body.focus .modal-content button:hover {
+
+    background:#8FC9A5;
+}
+
+/* =========================
+   테마별 theme.html 글씨색
+========================= */
+
+/* 다크 */
+body.dark .theme-header h1 {
+    color: #D5D7DC;
+}
+
+body.dark .theme-header p {
+    color: #BFC3CA;
+}
+
+/* 봄 */
+body.spring .theme-header h1 {
+    color: #D96A7E;
+}
+
+body.spring .theme-header p {
+    color: #9B5A66;
+}
+
+/* 집중 */
+body.focus .theme-header h1 {
+    color: #5F8765;
+}
+
+body.focus .theme-header p {
+    color: #7C8F80;
+}
+
+/* =========================
+   테마별 카드 hover
+========================= */
+
+.theme-card[data-theme="default"]:hover {
+    transform: translateY(-5px);
+    border-color: #FFB67A;
+}
+
+.theme-card[data-theme="dark"]:hover {
+    transform: translateY(-5px);
+    border-color: #D5D7DC;
+}
+
+.theme-card[data-theme="spring"]:hover {
+    transform: translateY(-5px);
+    border-color: #FFB6C1;
+}
+
+.theme-card[data-theme="focus"]:hover {
+    transform: translateY(-5px);
+    border-color: #A8D5BA;
+}

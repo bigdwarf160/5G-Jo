@@ -33,6 +33,12 @@ body {
     height: 60px;
 }
 
+/* 헤더 우측 레이어 정리 */
+.header-right {
+    position: relative;
+    z-index: 10;
+}
+
 .header-left { flex: 1; }
 .header-center { flex: 2; text-align: center; }
 .header-right { flex: 1; display: flex; justify-content: flex-end; gap: 12px; }
@@ -209,15 +215,15 @@ body {
 .check-box {
     width: 22px;
     height: 22px;
-    border: 2px solid #D1E1CF;
+    border: 2px solid #F5B78E;
     border-radius: 6px;
     position: relative;
 }
 
-.task-item.checked .check-box { background: #D1E1CF; }
+.task-item.checked .check-box {background: #F5B78E;}
 .task-item.checked .check-box::after {
     content: '✔';
-    color: #4A5D45;
+    color: #4B3621;
     font-weight: bold;
     position: absolute;
     left: 4px;
@@ -465,4 +471,600 @@ body {
         transform: scale(1);
         opacity: 1;
     }
+}
+
+/* =========================
+   집중모드 테마 (초록 계열)
+========================= */
+
+body.focus {
+    background-color: #EDF4EC;
+    color: #3F5144;
+}
+
+body.focus .notebook {
+    background: #F8FCF7;
+}
+
+/* 구분선 */
+body.focus .section-divider {
+    background: #D7E6D3;
+}
+
+/* 헤더 */
+body.focus .user-welcome,
+body.focus .point-text,
+body.focus .risk-value,
+body.focus .prog-name,
+body.focus .prog-num,
+body.focus .todo-title,
+body.focus .subj-name,
+body.focus .eval-title,
+body.focus .avg-value,
+body.focus .goal-title,
+body.focus .goal-name {
+    color: #3F5144;
+}
+
+/* 포인트 / 프로필 */
+body.focus .point-box,
+body.focus .profile-box {
+    background: #FFFFFF;
+    border: 1px solid #D5E4D1;
+    box-shadow: 0 3px 8px rgba(63, 81, 68, 0.06);
+}
+
+/* 위험도 원 */
+body.focus .risk-circle {
+    background: #F8FCF7;
+    border-color: #8DAA91;
+}
+
+body.focus .risk-alert {
+    background: #FFFFFF;
+    border-color: #7F9B84;
+    color: #7F9B84;
+}
+
+body.focus .risk-tooltip {
+    background-color: #4F6654;
+}
+
+body.focus .risk-tooltip::after {
+    border-color: #4F6654 transparent transparent transparent;
+}
+
+/* 진행률 카드 */
+body.focus .progress-card,
+body.focus .goal-container,
+body.focus .eval-card {
+    background: #FFFFFF;
+    border: 1px solid #D7E6D3;
+    box-shadow: 0 8px 20px rgba(63, 81, 68, 0.05);
+}
+
+/* 진행률 바 */
+body.focus .bar-container {
+    background: #E3EEE0;
+}
+
+body.focus .bar-fill {
+    background: linear-gradient(
+        90deg,
+        #8FB996,
+        #5F8765
+    );
+}
+
+/* 오늘 할 일 */
+body.focus .subj-header {
+    border-bottom: 2px solid #8FB996;
+}
+
+body.focus .subj-score,
+body.focus .goal-dday {
+    color: #5F8765;
+}
+
+body.focus .task-item {
+    border-bottom: 1px dashed #D7E6D3;
+}
+
+body.focus .check-box {
+    border: 2px solid #7F9B84;
+    background: #FFFFFF;
+}
+
+body.focus .task-item.checked .check-box {
+    background: #7F9B84;
+}
+
+body.focus .task-item.checked .check-box::after {
+    color: #FFFFFF;
+}
+
+/* 목표 카드 */
+body.focus .goal-item {
+    background: #F2F8F1;
+    border: 1px solid #B8CFBC;
+    color: #3F5144;
+}
+
+/* 오늘의 나 평가 */
+body.focus .eval-q,
+body.focus .avg-label {
+    color: #7C8F80;
+}
+
+body.focus .num-btn {
+    background: #FFFFFF;
+    border: 1px solid #D7E6D3;
+    color: #A8B9AC;
+}
+
+body.focus .num-btn:hover {
+    border-color: #7F9B84;
+    color: #5F8765;
+}
+
+body.focus .num-btn.active {
+    background: #7F9B84;
+    color: #FFFFFF;
+    border-color: #7F9B84;
+    box-shadow: 0 5px 15px rgba(127, 155, 132, 0.3);
+}
+
+/* 버튼 */
+body.focus .eval-submit-btn,
+body.focus #createGoalBtn,
+body.focus #logoutBtn,
+body.focus .modal-content button {
+    background-color: #8FB996;
+    color: #FFFFFF;
+    box-shadow: 0 5px 15px rgba(143, 185, 150, 0.25);
+}
+
+body.focus .eval-submit-btn:hover,
+body.focus #createGoalBtn:hover,
+body.focus #logoutBtn:hover,
+body.focus .modal-content button:hover {
+    background-color: #6E9675;
+}
+
+/* 평균 박스 */
+body.focus .avg-display-box {
+    background: #F3F8F2;
+    border: 1px dashed #B8CFBC;
+}
+
+/* 모달 */
+body.focus .modal-content {
+    background: #FFFFFF;
+    border: 1px solid #D7E6D3;
+}
+
+body.focus .modal-content h2 {
+    color: #3F5144;
+}
+
+body.focus .modal-content p {
+    color: #7C8F80;
+}
+
+/* =========================
+   다크모드 테마 (그레이 계열)
+========================= */
+
+body.dark {
+
+    background-color: #242528;
+    color: #ECECEC;
+}
+
+body.dark .notebook {
+    background: #2F3136;
+}
+
+/* 구분선 */
+body.dark .section-divider {
+
+    background: #44464D;
+}
+
+/* 글씨 */
+body.dark .user-welcome,
+body.dark .point-text,
+body.dark .risk-value,
+body.dark .prog-name,
+body.dark .prog-num,
+body.dark .todo-title,
+body.dark .subj-name,
+body.dark .eval-title,
+body.dark .avg-value,
+body.dark .goal-title,
+body.dark .goal-name {
+
+    color: #F3F3F3;
+}
+
+/* 카드 */
+body.dark .progress-card,
+body.dark .goal-container,
+body.dark .eval-card,
+body.dark .point-box,
+body.dark .profile-box {
+
+    background: #383B40;
+    border: 1px solid #50535A;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* 진행률 바 */
+body.dark .bar-container {
+
+    background: #50535A;
+}
+
+body.dark .bar-fill {
+
+    background:
+        linear-gradient(
+            90deg,
+            #B8BCC4,
+            #8F959E
+        );
+}
+
+/* 버튼 */
+body.dark .eval-submit-btn,
+body.dark #createGoalBtn,
+body.dark #logoutBtn,
+body.dark .modal-content button {
+
+    background: #D5D7DC;
+    color: #242528;
+
+    box-shadow:
+        0 5px 15px rgba(213,215,220,0.15);
+}
+
+body.dark .eval-submit-btn:hover,
+body.dark #createGoalBtn:hover,
+body.dark #logoutBtn:hover,
+body.dark .modal-content button:hover {
+
+    background: #BFC3CA;
+}
+
+/* 체크박스 */
+body.dark .check-box {
+
+    border: 2px solid #C5C8CE;
+    background: #383B40;
+}
+
+body.dark .task-item.checked .check-box {
+
+    background: #D5D7DC;
+}
+
+body.dark .task-item.checked .check-box::after {
+
+    color: #242528;
+}
+
+/* 투두 */
+body.dark .task-item {
+
+    border-bottom: 1px dashed #50535A;
+}
+
+body.dark .subj-header {
+
+    border-bottom: 2px solid #BFC3CA;
+}
+
+/* 목표 카드 */
+body.dark .goal-item {
+
+    background: #44464D;
+    border: 1px solid #60636B;
+}
+
+body.dark .subj-score,
+body.dark .goal-dday {
+
+    color: #D5D7DC;
+}
+
+/* 오늘의 나 평가 */
+body.dark .eval-q,
+body.dark .avg-label {
+
+    color: #B6B8BD;
+}
+
+body.dark .num-btn {
+
+    background: #44464D;
+    border: 1px solid #60636B;
+    color: #B6B8BD;
+}
+
+body.dark .num-btn:hover {
+
+    border-color: #D5D7DC;
+    color: #FFFFFF;
+}
+
+body.dark .num-btn.active {
+
+    background: #D5D7DC;
+    border-color: #D5D7DC;
+    color: #242528;
+
+    box-shadow:
+        0 5px 15px rgba(213,215,220,0.18);
+}
+
+/* 평균 박스 */
+body.dark .avg-display-box {
+
+    background: #3C3F45;
+    border: 1px dashed #60636B;
+}
+
+/* 위험도 원 */
+body.dark .risk-circle {
+
+    border-color: #BFC3CA;
+    background: #383B40;
+}
+
+body.dark .risk-alert {
+
+    background: #44464D;
+    border-color: #FF9B9B;
+    color: #FF9B9B;
+}
+
+/* 툴팁 */
+body.dark .risk-tooltip {
+
+    background-color: #1C1D20;
+    color: #F3F3F3;
+}
+
+body.dark .risk-tooltip::after {
+
+    border-color:
+        #1C1D20 transparent transparent transparent;
+}
+
+/* 모달 */
+body.dark .modal-content {
+
+    background: #383B40;
+    border: 1px solid #50535A;
+}
+
+body.dark .modal-content h2 {
+
+    color: #F3F3F3;
+}
+
+body.dark .modal-content p {
+
+    color: #B6B8BD;
+}
+
+/* =========================
+   봄 테마 (파스텔 핑크 계열)
+========================= */
+
+body.spring {
+
+    background-color: #FFF5F8;
+    color: #6B3F4A;
+}
+
+body.spring .notebook {
+    background: #FFF9FB;
+}
+
+/* 구분선 */
+body.spring .section-divider {
+
+    background: #FFD6DF;
+}
+
+/* 글씨 */
+body.spring .user-welcome,
+body.spring .point-text,
+body.spring .risk-value,
+body.spring .prog-name,
+body.spring .prog-num,
+body.spring .todo-title,
+body.spring .subj-name,
+body.spring .eval-title,
+body.spring .avg-value,
+body.spring .goal-title,
+body.spring .goal-name {
+
+    color: #6B3F4A;
+}
+
+/* 카드 */
+body.spring .progress-card,
+body.spring .goal-container,
+body.spring .eval-card,
+body.spring .point-box,
+body.spring .profile-box {
+
+    background: #FFFFFF;
+    border: 1px solid #FFCCD6;
+
+    box-shadow:
+        0 4px 12px rgba(255, 182, 193, 0.22);
+}
+
+/* 진행률 바 */
+body.spring .bar-container {
+
+    background: #FFE1E8;
+}
+
+body.spring .bar-fill {
+
+    background:
+        linear-gradient(
+            90deg,
+            #FFD1DA,
+            #FFB6C1
+        );
+}
+
+/* 버튼 */
+body.spring .eval-submit-btn,
+body.spring #createGoalBtn,
+body.spring #logoutBtn,
+body.spring .modal-content button {
+
+    background: #FFB6C1;
+    color: #6B3F4A;
+
+    box-shadow:
+        0 5px 15px rgba(255, 182, 193, 0.28);
+}
+
+body.spring .eval-submit-btn:hover,
+body.spring #createGoalBtn:hover,
+body.spring #logoutBtn:hover,
+body.spring .modal-content button:hover {
+
+    background: #FFA6B5;
+}
+
+/* 체크박스 */
+body.spring .check-box {
+
+    border: 2px solid #FFB6C1;
+    background: #FFFFFF;
+}
+
+body.spring .task-item.checked .check-box {
+
+    background: #FFB6C1;
+}
+
+body.spring .task-item.checked .check-box::after {
+
+    color: #6B3F4A;
+}
+
+/* 투두 */
+body.spring .task-item {
+
+    border-bottom: 1px dashed #FFD6DF;
+}
+
+body.spring .subj-header {
+
+    border-bottom: 2px solid #FFB6C1;
+}
+
+/* 목표 카드 */
+body.spring .goal-item {
+
+    background: #FFF0F4;
+    border: 1px solid #FFCCD6;
+}
+
+body.spring .subj-score,
+body.spring .goal-dday {
+
+    color: #D96A7E;
+}
+
+/* 오늘의 나 평가 */
+body.spring .eval-q,
+body.spring .avg-label {
+
+    color: #9B5A66;
+}
+
+body.spring .num-btn {
+
+    background: #FFF0F4;
+    border: 1px solid #FFCCD6;
+    color: #9B5A66;
+}
+
+body.spring .num-btn:hover {
+
+    border-color: #FFB6C1;
+    color: #D96A7E;
+}
+
+body.spring .num-btn.active {
+
+    background: #FFB6C1;
+    border-color: #FFB6C1;
+    color: #6B3F4A;
+
+    box-shadow:
+        0 5px 15px rgba(255, 182, 193, 0.28);
+}
+
+/* 평균 박스 */
+body.spring .avg-display-box {
+
+    background: #FFF9FB;
+    border: 1px dashed #FFCCD6;
+}
+
+/* 위험도 원 */
+body.spring .risk-circle {
+
+    border-color: #FFB6C1;
+    background: #FFF9FB;
+}
+
+body.spring .risk-alert {
+
+    background: #FFF0F4;
+    border-color: #FF9AAA;
+    color: #D85C72;
+}
+
+/* 툴팁 */
+body.spring .risk-tooltip {
+
+    background-color: #6B3F4A;
+    color: #FFFFFF;
+}
+
+body.spring .risk-tooltip::after {
+
+    border-color:
+        #6B3F4A transparent transparent transparent;
+}
+
+/* 모달 */
+body.spring .modal-content {
+
+    background: #FFFFFF;
+    border: 1px solid #FFCCD6;
+}
+
+body.spring .modal-content h2 {
+
+    color: #6B3F4A;
+}
+
+body.spring .modal-content p {
+
+    color: #9B5A66;
 }

@@ -1,32 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-/// 테스트 코드 - 추후 삭제 해야함 ///
-const TEST_MODE = true;
-
-if (TEST_MODE) {
-
-    // 기존 데이터 없을 때만 생성
-    if (!localStorage.getItem("plans_testUser")) {
-
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userName", "testUser");
-
-        localStorage.setItem("plans_testUser", JSON.stringify([
-            {
-                id: Date.now(),
-                name: "알고리즘 문제 풀이",
-                total: 5,
-                dailyAmount: 5,
-                unit: "문제",
-                startDate: "2026-05-14",
-                end: "2026-05-20",
-                completed: false
-            }
-        ]));
-    }
-}
-/// 여기까지
-
+    // 여기있던 임시 테스트 코드 삭제했습니다!
+    
     // =============================
     // 로그인
     // =============================
@@ -98,15 +73,11 @@ if (TEST_MODE) {
         return;
     }
 
-    // =============================
-    // 저장된 테마 적용
-    // =============================
-    const savedTheme =
-        localStorage.getItem(`theme_${userKey}`);
+    const themeKey = `theme_${userKey}`;
+    const savedTheme = localStorage.getItem(themeKey);
 
     if (savedTheme) {
-
-        document.body.classList.add(savedTheme);
+    document.body.classList.add(savedTheme);
     }
 
     // =============================
