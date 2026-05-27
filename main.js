@@ -59,9 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // =============================
+    // ======================================
     // 회원 가입 후 최초 사용자 -> 목표 생성 페이지 이동
-    // =============================
+    // ======================================
     const userKey = currentUser.trim();
 
     let plans =
@@ -73,12 +73,27 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const themeKey = `theme_${userKey}`;
-    const savedTheme = localStorage.getItem(themeKey);
+    // 테마 리스트
+    const themeList = [
+        "default", 
+        "dark",
+        "spring",
+        "focus",
+        "summer",
+        "autumn"
+    ];
 
-    if (savedTheme) {
+    const themeKey =
+    `theme_${userKey}`;
+   
+    const savedTheme =
+    localStorage.getItem(themeKey) || "default";
+
+    // 기존에 적용된 테마 제거 
+    document.body.classList.remove(...themeList);
+
+    // 테마 적용
     document.body.classList.add(savedTheme);
-    }
 
     // =============================
     // 로그아웃
@@ -266,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =============================
-    // 포인트 클릭 -> 테마 이동 (추가)
+    // 포인트 클릭 -> theme.html로 이동
     // =============================
     const pointBox =
         document.querySelector('.point-box');

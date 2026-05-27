@@ -13,8 +13,8 @@ body{
 .wrapper {
     display: flex;
     align-items: center;
-    justify-content: center; /* 가운데 정렬 */
-    gap: 60px;               /* 이미지와 로그인 사이 간격 */
+    justify-content: center;
+    gap: 60px;
     width: 90%;
     max-width: 1000px;
     margin: 0 auto;
@@ -100,8 +100,8 @@ body{
     position:relative;
     flex-shrink: 0;
 
-    /* 로그인 박스 왼쪽으로 이동 */
     transform: translateX(-60px); 
+}
 
 /* 빨간 여백 줄 */
 .login-container::before{
@@ -136,22 +136,39 @@ body{
     background:#FFF8E7;
 }
 
-/* 로고 자리 */
+/* 로고 */
 .logo{
-    width:120px;
-    height:60px;
+    width:330px;
+    height:200px;
 
-    border:2px solid #C7D8C0;
-    border-radius:50px;
+    margin:-25px auto -20px auto;
 
-    margin:0 auto 20px auto;
+    background-image:url("planetic-logo.png");
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+
+    display:block;
+}
+
+/* 로고 아래 문구 */
+.logo-text{
+    text-align:center;
+    color:#909B83;
+    font-size:15px;
+    font-weight:400;
+    letter-spacing:0.5px;
+    margin-top:-5px;
+    margin-bottom:15px;
+    opacity:0.9;
 }
 
 /* 제목 */
 .title{
     text-align:center;
     color:#5C4033;
-    margin-bottom:30px;
+    margin-top:0;
+    margin-bottom:16px;
 }
 
 /* 입력창 */
@@ -207,6 +224,8 @@ input{
 
     cursor:pointer;
     font-weight:bold;
+    font-size:16px;
+    letter-spacing:0.3px;
 }
 
 /* 회원가입 */
@@ -219,5 +238,4 @@ input{
     color:#A85C4D;
     text-decoration:none;
     font-weight:bold;
-}
 }

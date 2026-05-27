@@ -473,8 +473,10 @@ body {
     }
 }
 
+/*여기부터 테마 적용*/
+
 /* =========================
-   집중모드 테마 (초록 계열)
+   집중 테마 (focus) 
 ========================= */
 
 body.focus {
@@ -484,6 +486,7 @@ body.focus {
 
 body.focus .notebook {
     background: #F8FCF7;
+    border: 2px solid #8FB996;
 }
 
 /* 구분선 */
@@ -652,7 +655,7 @@ body.focus .modal-content p {
 }
 
 /* =========================
-   다크모드 테마 (그레이 계열)
+   다크 테마 (dark)
 ========================= */
 
 body.dark {
@@ -861,7 +864,7 @@ body.dark .modal-content p {
 }
 
 /* =========================
-   봄 테마 (파스텔 핑크 계열)
+   봄 테마 (spring)
 ========================= */
 
 body.spring {
@@ -872,6 +875,7 @@ body.spring {
 
 body.spring .notebook {
     background: #FFF9FB;
+    border: 2px solid #FFB6C1;
 }
 
 /* 구분선 */
@@ -1067,4 +1071,496 @@ body.spring .modal-content h2 {
 body.spring .modal-content p {
 
     color: #9B5A66;
+}
+
+/* =========================
+   여름 테마 (summer)
+========================= */
+
+body.summer {
+
+    background:
+        linear-gradient(
+            180deg,
+            #DDF4FF 0%,
+            #EAF9FF 55%,
+            #FFF3D6 100%
+        );
+    color: #2F5366;
+}
+
+body.summer .notebook {
+
+    background:
+        /*파도 무늬*/
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Ctext x='70' y='120' font-size='60' opacity='0.05'%3E🌊%3C/text%3E%3C/svg%3E"),
+        radial-gradient(
+            circle at 90% 8%,
+            rgba(255,255,255,0.85),
+            transparent 18%
+        ),
+        #F7FCFF;
+
+    border: 2px solid #7EC8E3;
+
+    background-repeat: repeat;
+
+    background-size: 220px 220px;
+}
+
+
+/* 구분선 */
+body.summer .section-divider {
+
+    background: #BDEAF8;
+}
+
+/* 글씨 */
+body.summer .user-welcome,
+body.summer .point-text,
+body.summer .risk-value,
+body.summer .prog-name,
+body.summer .prog-num,
+body.summer .todo-title,
+body.summer .subj-name,
+body.summer .eval-title,
+body.summer .avg-value,
+body.summer .goal-title,
+body.summer .goal-name {
+
+    color: #2F5366;
+}
+
+/* 카드 */
+body.summer .progress-card,
+body.summer .goal-container,
+body.summer .eval-card,
+body.summer .point-box,
+body.summer .profile-box {
+
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #A7DFF5;
+
+    box-shadow:
+        0 6px 16px rgba(77, 168, 218, 0.18);
+}
+
+/* 진행률 바 */
+body.summer .bar-container {
+
+    background: #D7F1FA;
+}
+
+body.summer .bar-fill {
+
+    background:
+        linear-gradient(
+            90deg,
+            #9DE3F7,
+            #4DA8DA
+        );
+}
+
+/* 버튼 */
+body.summer .eval-submit-btn,
+body.summer #createGoalBtn,
+body.summer #logoutBtn,
+body.summer .modal-content button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #7EC8E3,
+            #4DA8DA
+        );
+    color: #FFFFFF;
+
+    box-shadow:
+        0 5px 15px rgba(77, 168, 218, 0.28);
+}
+
+body.summer .eval-submit-btn:hover,
+body.summer #createGoalBtn:hover,
+body.summer #logoutBtn:hover,
+body.summer .modal-content button:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            #6BBFDA,
+            #3498C9
+        );
+}
+
+/* 체크박스 */
+body.summer .check-box {
+
+    border: 2px solid #4DA8DA;
+    background: #FFFFFF;
+}
+
+body.summer .task-item.checked .check-box {
+
+    background: #4DA8DA;
+}
+
+body.summer .task-item.checked .check-box::after {
+
+    color: #FFFFFF;
+}
+
+/* 투두 */
+body.summer .task-item {
+
+    border-bottom: 1px dashed #BDEAF8;
+}
+
+body.summer .subj-header {
+
+    border-bottom: 2px solid #4DA8DA;
+}
+
+/* 목표 카드 */
+body.summer .goal-item {
+
+    background: #EAF9FF;
+    border: 1px solid #A7DFF5;
+}
+
+body.summer .subj-score,
+body.summer .goal-dday {
+
+    color: #1E88B8;
+}
+
+/* 오늘의 나 평가 */
+body.summer .eval-q,
+body.summer .avg-label {
+
+    color: #4F7385;
+}
+
+body.summer .num-btn {
+
+    background: #EAF9FF;
+    border: 1px solid #A7DFF5;
+    color: #4F7385;
+}
+
+body.summer .num-btn:hover {
+
+    border-color: #4DA8DA;
+    color: #1E88B8;
+}
+
+body.summer .num-btn.active {
+
+    background: #7EC8E3;
+    border-color: #7EC8E3;
+    color: #FFFFFF;
+
+    box-shadow:
+        0 5px 15px rgba(77, 168, 218, 0.28);
+}
+
+/* 평균 박스 */
+body.summer .avg-display-box {
+
+    background: #F7FCFF;
+    border: 1px dashed #A7DFF5;
+}
+
+/* 위험도 원 */
+body.summer .risk-circle {
+
+    border-color: #4DA8DA;
+    background: #F7FCFF;
+}
+
+body.summer .risk-alert {
+
+    background: #EAF9FF;
+    border-color: #4DA8DA;
+    color: #1E88B8;
+}
+
+/* 툴팁 */
+body.summer .risk-tooltip {
+
+    background-color: #2F5366;
+    color: #FFFFFF;
+}
+
+body.summer .risk-tooltip::after {
+
+    border-color:
+        #2F5366 transparent transparent transparent;
+}
+
+/* 모달 */
+body.summer .modal-content {
+
+    background: #FFFFFF;
+    border: 1px solid #A7DFF5;
+}
+
+body.summer .modal-content h2 {
+
+    color: #2F5366;
+}
+
+body.summer .modal-content p {
+
+    color: #4F7385;
+}
+
+/* =========================
+   가을 테마 (autumn)
+========================= */
+
+body.autumn {
+
+    background:
+        linear-gradient(
+            180deg,
+            #E9D2B8 0%,
+            #E7D3BC 55%,
+            #D9B38C 100%
+        );
+
+    color: #5A3E2B;
+}
+
+body.autumn .notebook {
+
+    background:
+        linear-gradient(
+            180deg,
+            #FFF8F0 0%,
+            #FDF1E3 100%
+        );
+
+    border: 2px solid #C98C5A;
+
+    box-shadow:
+        0 8px 24px rgba(140, 88, 45, 0.14);
+}
+
+/* 구분선 */
+body.autumn .section-divider {
+
+    background: #DFC2A0;
+}
+
+/* 글씨 */
+body.autumn .user-welcome,
+body.autumn .point-text,
+body.autumn .risk-value,
+body.autumn .prog-name,
+body.autumn .prog-num,
+body.autumn .todo-title,
+body.autumn .subj-name,
+body.autumn .eval-title,
+body.autumn .avg-value,
+body.autumn .goal-title,
+body.autumn .goal-name {
+
+    color: #5A3E2B;
+}
+
+/* 카드 */
+body.autumn .progress-card,
+body.autumn .goal-container,
+body.autumn .eval-card,
+body.autumn .point-box,
+body.autumn .profile-box {
+
+    background: rgba(255,248,240,0.92);
+
+    border: 1px solid #D6A777;
+
+    box-shadow:
+        0 6px 18px rgba(140, 88, 45, 0.15);
+}
+
+/* 진행률 바 */
+body.autumn .bar-container {
+
+    background: #E9D4BC;
+}
+
+body.autumn .bar-fill {
+
+    background:
+        linear-gradient(
+            90deg,
+            #E7B27A,
+            #C97E3D
+        );
+}
+
+/* 버튼 */
+body.autumn .eval-submit-btn,
+body.autumn #createGoalBtn,
+body.autumn #logoutBtn,
+body.autumn .modal-content button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #D99852,
+            #B96B33
+        );
+
+    color: #FFF8F0;
+
+    box-shadow:
+        0 5px 15px rgba(185, 107, 51, 0.28);
+}
+
+body.autumn .eval-submit-btn:hover,
+body.autumn #createGoalBtn:hover,
+body.autumn #logoutBtn:hover,
+body.autumn .modal-content button:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            #C98749,
+            #A85B2A
+        );
+}
+
+/* 체크박스 */
+body.autumn .check-box {
+
+    border: 2px solid #C97E3D;
+    background: #FFFFFF;
+}
+
+body.autumn .task-item.checked .check-box {
+
+    background: #C97E3D;
+}
+
+body.autumn .task-item.checked .check-box::after {
+
+    color: #FFF8F0;
+}
+
+/* 투두 */
+body.autumn .task-item {
+
+    border-bottom: 1px dashed #DFC2A0;
+}
+
+body.autumn .subj-header {
+
+    border-bottom: 2px solid #C97E3D;
+}
+
+/* 목표 카드 */
+body.autumn .goal-item {
+
+    background: #FFF1E3;
+
+    border: 1px solid #D6A777;
+}
+
+body.autumn .subj-score,
+body.autumn .goal-dday {
+
+    color: #B96B33;
+}
+
+/* 오늘의 나 평가 */
+body.autumn .eval-q,
+body.autumn .avg-label {
+
+    color: #7B5A43;
+}
+
+body.autumn .num-btn {
+
+    background: #FFF1E3;
+
+    border: 1px solid #D6A777;
+
+    color: #7B5A43;
+}
+
+body.autumn .num-btn:hover {
+
+    border-color: #C97E3D;
+
+    color: #B96B33;
+}
+
+body.autumn .num-btn.active {
+
+    background: #C97E3D;
+
+    border-color: #C97E3D;
+
+    color: #FFF8F0;
+
+    box-shadow:
+        0 5px 15px rgba(185, 107, 51, 0.25);
+}
+
+/* 평균 박스 */
+body.autumn .avg-display-box {
+
+    background: #FFF8F0;
+
+    border: 1px dashed #D6A777;
+}
+
+/* 위험도 원 */
+body.autumn .risk-circle {
+
+    border-color: #C97E3D;
+
+    background: #FFF8F0;
+}
+
+body.autumn .risk-alert {
+
+    background: #FFF1E3;
+
+    border-color: #D88947;
+
+    color: #B96B33;
+}
+
+/* 툴팁 */
+body.autumn .risk-tooltip {
+
+    background-color: #5A3E2B;
+
+    color: #FFFFFF;
+}
+
+body.autumn .risk-tooltip::after {
+
+    border-color:
+        #5A3E2B transparent transparent transparent;
+}
+
+/* 모달 */
+body.autumn .modal-content {
+
+    background: #FFF8F0;
+
+    border: 1px solid #D6A777;
+}
+
+body.autumn .modal-content h2 {
+
+    color: #5A3E2B;
+}
+
+body.autumn .modal-content p {
+
+    color: #7B5A43;
 }

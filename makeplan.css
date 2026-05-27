@@ -109,3 +109,312 @@ input, select {
     .unit-select { width: 100%; }
     .main-btn { font-size: 16px; padding: 12px; }
 }
+
+/* 여기부터 테마 적용*/
+
+/* =========================
+   봄 테마
+========================= */
+
+body.spring {
+    background-color: #fff0f5;
+    color: #5C4033;
+}
+
+body.spring .notebook {
+
+    background: #FFF9FB;
+
+    background-image:
+        linear-gradient(#FFD6DF 2px, transparent 2px);
+
+    background-size: 100% 45px;
+}
+
+body.spring h1,
+body.spring .summary-item p,
+body.spring .preview-list li {
+
+    color: #6B3F4A;
+}
+
+body.spring input,
+body.spring select {
+
+    border: 1px solid #FFC7D1;
+    background: #FFFDFE;
+}
+
+body.spring .status-summary {
+
+    background: rgba(255, 182, 193, 0.08);
+    border: 1.5px solid #FFB6C1;
+}
+
+body.spring .summary-divider {
+
+    background: #FFB6C1;
+}
+
+body.spring .summary-label,
+body.spring .preview-list li strong {
+
+    color: #C05A78;
+}
+
+body.spring .main-btn {
+
+    background: #FFB6C1;
+    color: #6B3F4A;
+
+    box-shadow: 0 5px 0 #E89AAE;
+}
+
+/* =========================
+   여름 테마
+========================= */
+
+body.summer {
+    background-color: #EAF7FF;
+    color: #355C7D;
+}
+
+body.summer .notebook {
+
+    background: #F4FBFF;
+
+    background-image:
+        linear-gradient(#CFEFFF 2px, transparent 2px);
+
+    background-size: 100% 45px;
+}
+
+body.summer h1,
+body.summer .summary-item p,
+body.summer .preview-list li {
+
+    color: #355C7D;
+}
+
+body.summer input,
+body.summer select {
+
+    border: 1px solid #B7E4FF;
+    background: #FCFEFF;
+}
+
+body.summer .status-summary {
+
+    background: rgba(124, 203, 255, 0.08);
+    border: 1.5px solid #7CCBFF;
+}
+
+body.summer .summary-divider {
+
+    background: #7CCBFF;
+}
+
+body.summer .summary-label,
+body.summer .preview-list li strong {
+
+    color: #2F7DA5;
+}
+
+body.summer .main-btn {
+
+    background: #7CCBFF;
+    color: #24506B;
+
+    box-shadow: 0 5px 0 #63B5EB;
+}
+
+/* =========================
+   집중 테마
+========================= */
+
+body.focus {
+    background-color: #E8F5E9;
+    color: #4A5D45;
+}
+
+body.focus .notebook {
+
+    background: #F8FCF7;
+
+    background-image:
+        linear-gradient(#DCEFD9 2px, transparent 2px);
+
+    background-size: 100% 45px;
+}
+
+body.focus h1,
+body.focus .summary-item p,
+body.focus .preview-list li {
+
+    color: #4A5D45;
+}
+
+body.focus input,
+body.focus select {
+
+    border: 1px solid #CFE6D2;
+    background: #FCFFFC;
+}
+
+body.focus .status-summary {
+
+    background: rgba(168, 213, 186, 0.08);
+    border: 1.5px solid #A8D5BA;
+}
+
+body.focus .summary-divider {
+
+    background: #A8D5BA;
+}
+
+body.focus .summary-label,
+body.focus .preview-list li strong {
+
+    color: #5F8B68;
+}
+
+body.focus .main-btn {
+
+    background: #A8D5BA;
+    color: #35523A;
+
+    box-shadow: 0 5px 0 #8FC4A2;
+}
+
+/* =========================
+   가을 테마
+========================= */
+
+body.autumn {
+    background-color: #F7EFE6;
+    color: #5C4033;
+}
+
+body.autumn .notebook {
+
+    background: #FFF9F1;
+
+    background-image:
+        linear-gradient(#E3C7A6 2px, transparent 2px);
+
+    background-size: 100% 45px;
+}
+
+body.autumn h1,
+body.autumn .summary-item p,
+body.autumn .preview-list li {
+
+    color: #6B4A32;
+}
+
+body.autumn input,
+body.autumn select {
+
+    border: 1px solid #DFC3A4;
+    background: #FFFDFC;
+}
+
+body.autumn .status-summary {
+
+    background: rgba(197, 139, 91, 0.08);
+    border: 1.5px solid #C58B5B;
+}
+
+body.autumn .summary-divider {
+
+    background: #C58B5B;
+}
+
+body.autumn .summary-label,
+body.autumn .preview-list li strong {
+
+    color: #A0653A;
+}
+
+body.autumn .main-btn {
+
+    background: #C58B5B;
+    color: #FFF8F3;
+
+    box-shadow: 0 5px 0 #A97449;
+}
+
+/* =========================
+   다크 테마
+========================= */
+
+body.dark {
+    background-color: #242528;
+    color: #ECECEC;
+}
+
+body.dark .notebook {
+
+    background: #2F3136;
+
+    background-image:
+        linear-gradient(#44464D 2px, transparent 2px);
+
+    background-size: 100% 45px;
+}
+
+body.dark h1,
+body.dark .summary-item p,
+body.dark .preview-list li {
+
+    color: #F3F3F3;
+}
+
+body.dark input,
+body.dark select {
+
+    border: 1px solid #555962;
+    background: #3A3D43;
+    color: #ECECEC;
+}
+
+body.dark .label-text,
+body.dark .summary-label,
+body.dark .empty-msg {
+
+    color: #C9C9C9;
+}
+
+body.dark .status-summary {
+
+    background: rgba(80, 83, 90, 0.18);
+    border: 1.5px solid #50535A;
+}
+
+body.dark .summary-divider {
+
+    background: #70737C;
+}
+
+body.dark .preview-section {
+
+    border-top: 2px dashed #50535A;
+}
+
+body.dark .preview-list li {
+
+    border-bottom: 1px solid #50535A;
+}
+
+body.dark .preview-list li strong {
+
+    color: #BFC3CC;
+}
+
+body.dark .main-btn {
+
+    background: #50535A;
+    color: #ECECEC;
+
+    box-shadow: 0 5px 0 #3F4248;
+}

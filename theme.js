@@ -2,23 +2,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const cards = document.querySelectorAll(".theme-card");
 
-    // default = 기본, dark = 다크 테마,  spring = 봄 테마, focus = 그린 테마
-    const themeList = ["default", "dark", "spring", "focus"];
+    const themeList = [
+        "default",
+        "dark",
+        "spring",
+        "focus",
+        "summer",
+        "autumn"
+    ];
 
-    // ===================================
-    // main.js랑 동일한 방식으로 로그인/유저 처리
-    // ===================================
     const isLoggedInSession =
-        sessionStorage.getItem('isLoggedIn') === 'true';
+        sessionStorage.getItem("isLoggedIn") === "true";
 
     const userNameSession =
-        sessionStorage.getItem('userName');
+        sessionStorage.getItem("userName");
 
     const isLoggedInLocal =
-        localStorage.getItem('isLoggedIn') === 'true';
+        localStorage.getItem("isLoggedIn") === "true";
 
     const userNameLocal =
-        localStorage.getItem('userName');
+        localStorage.getItem("userName");
 
     let currentUser = null;
 
@@ -30,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         currentUser = userNameLocal;
 
-        sessionStorage.setItem('isLoggedIn', 'true');
-        sessionStorage.setItem('userName', currentUser);
+        sessionStorage.setItem("isLoggedIn", "true");
+        sessionStorage.setItem("userName", currentUser);
     }
 
     if (!currentUser) {
@@ -40,29 +43,43 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // =========================
-    // 유저별 테마 키
-    // =========================
     const userKey = currentUser.trim();
 
-    const themeKey =
-        `theme_${userKey}`;
+    const themeKey = `theme_${userKey}`;
 
-    // =========================
-    // 테마 적용 함수
-    // 기본 테마도 body에 default 클래스 추가
-    // default가 기본 원래 테마로 저장됨 
-    // =========================
+    // 구매한 테마 저장 key
+    const purchasedKey = `purchasedThemes_${userKey}`;
+
+    const themePrices = {
+        default: 0,
+        dark: 100,
+        spring: 180,
+        focus: 200,
+        summer: 300,
+        autumn: 150
+    };
+
+    function getPurchasedThemes() {
+
+        return JSON.parse(
+            localStorage.getItem(purchasedKey)
+        ) || [];
+    }
+
+    function savePurchasedThemes(themes) {
+
+        localStorage.setItem(
+            purchasedKey,
+            JSON.stringify(themes)
+        );
+    }
+
     function applyTheme(theme) {
 
         document.body.classList.remove(...themeList);
-
         document.body.classList.add(theme);
     }
 
-    // =========================
-    // 저장된 테마 불러오기
-    // =========================
     const savedTheme =
         localStorage.getItem(themeKey) || "default";
 
@@ -70,24 +87,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
     applyTheme(savedTheme);
 
-    const activeCard = document.querySelector(
-        `.theme-card[data-theme="${savedTheme}"]`
-    );
+    const activeCard =
+        document.querySelector(
+            `.theme-card[data-theme="${savedTheme}"]`
+        );
 
     if (activeCard) {
 
         activeCard.classList.add("active");
     }
 
-    // =========================
-    // 카드 클릭 = 테마 미리보여줌
-    // =========================
+    const backBtn =
+        document.getElementById("backBtn");
+
+    backBtn?.addEventListener("click", () => {
+
+        window.location.href = "main.html";
+    });
+
+    const buyBtn =
+        document.getElementById("buyBtn");
+
+    const modal =
+        document.getElementById("buyModal");
+
+    const closeBtn =
+        document.getElementById("closeModalBtn");
+
+    const modalTitle =
+        modal.querySelector("h2");
+
+    const modalText =
+        modal.querySelector("p");
+
+    let canBuyTheme = false;
+
     cards.forEach(card => {
 
         card.addEventListener("click", () => {
 
-            const theme =
-                card.dataset.theme;
+            const theme = card.dataset.theme;
 
             if (!theme) return;
 
@@ -100,57 +139,111 @@ document.addEventListener("DOMContentLoaded", () => {
             card.classList.add("active");
 
             applyTheme(theme);
+
+            const purchasedThemes = getPurchasedThemes();
+
+            // 기본 테마 or 이미 구매한 테마는 바로 저장
+            if (
+                theme === "default" ||
+                purchasedThemes.includes(theme)
+            ) {
+
+                localStorage.setItem(themeKey, theme);
+
+                return;
+            }
         });
     });
 
-    // =========================
-    // 메인으로 돌아가기 버튼
-    // =========================
-    const backBtn =
-        document.getElementById("backBtn");
-
-    backBtn?.addEventListener("click", () => {
-
-        window.location.href = "main.html";
-    });
-
-    // =========================
-    // 구매 모달
-    // =========================
-    const buyBtn =
-        document.getElementById("buyBtn");
-
-    const modal =
-        document.getElementById("buyModal");
-
-    const closeBtn =
-        document.getElementById("closeModalBtn");
-
     buyBtn?.addEventListener("click", () => {
 
-        if (modal) {
+        if (selectedTheme === "default") {
+
+            localStorage.setItem(themeKey, "default");
+            return;
+        }
+
+        let purchasedThemes = getPurchasedThemes();
+
+        // 이미 구매한 테마
+        if (purchasedThemes.includes(selectedTheme)) {
+
+            localStorage.setItem(themeKey, selectedTheme);
+
+            canBuyTheme = false;
+
+            modalTitle.textContent =
+                "이미 구매한 테마입니다!";
+
+            modalText.textContent =
+                "구매한 테마가 적용되었습니다.";
 
             modal.style.display = "flex";
+
+            return;
         }
+
+        const currentPoint =
+            Number(
+                localStorage.getItem(`points_${userKey}`)
+            ) || 0;
+
+        const price =
+            themePrices[selectedTheme];
+
+        if (currentPoint < price) {
+
+            canBuyTheme = false;
+
+            modalTitle.textContent =
+                "포인트 부족!";
+
+            modalText.textContent =
+                "포인트가 부족합니다.";
+
+            modal.style.display = "flex";
+
+            return;
+        }
+
+        canBuyTheme = true;
+
+        // 포인트 차감
+        localStorage.setItem(
+            `points_${userKey}`,
+            currentPoint - price
+        );
+
+        // 구매한 테마 목록에 추가
+        purchasedThemes.push(selectedTheme);
+
+        savePurchasedThemes(purchasedThemes);
+
+        // 테마 저장
+        localStorage.setItem(
+            themeKey,
+            selectedTheme
+        );
+
+        modalTitle.textContent =
+            "구매 완료!";
+
+        modalText.textContent =
+            "테마 구매가 완료되었습니다.";
+
+        modal.style.display = "flex";
     });
 
     closeBtn?.addEventListener("click", () => {
 
-        if (selectedTheme === "default") {
-
-            localStorage.removeItem(themeKey);
-
-        } else {
-
-            localStorage.setItem(
-                themeKey,
-                selectedTheme
-            );
-        }
-
         if (modal) {
 
             modal.style.display = "none";
+        }
+
+        if (!canBuyTheme) {
+
+            return;
         }
 
         alert("테마가 적용되었습니다!");

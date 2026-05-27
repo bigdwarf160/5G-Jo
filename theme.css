@@ -1,3 +1,5 @@
+/* 테마 설정 페이지 css*/
+
 body{
 
     background:#FFF8E7;
@@ -159,6 +161,13 @@ body.focus .theme-card.active{
     background:#F2F8F1;
 }
 
+/* 여름 선택 */
+body.summer .theme-card.active{
+
+    border-color:#4DA8DA;
+    background:#EAF9FF;
+}
+
 /* 미리보기 */
 .theme-preview{
 
@@ -213,6 +222,26 @@ body.focus .theme-card.active{
             #E8F5E9,
             #C8E6C9
         );
+}
+
+/* 여름 */
+.summer-preview{
+
+    background:
+        linear-gradient(
+            135deg,
+            #DDF4FF,
+            #4DA8DA
+        );
+}
+
+.autumn-preview{
+
+    background:linear-gradient(
+        135deg,
+        #E8D9C5,
+        #C98C5A
+    );
 }
 
 /* 제목 */
@@ -432,7 +461,7 @@ body.spring #buyBtn:hover{
     background:#FFA6B5;
 }
 
-/* 집중모드 */
+/* 집중 */
 body.focus {
 
     background:#e8f5e9;
@@ -477,11 +506,172 @@ body.focus #buyBtn:hover{
     background:#8FC9A5;
 }
 
+/* 여름 */
+body.summer {
+
+    background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Ctext x='50' y='100' font-size='55' opacity='0.05'%3E🌊%3C/text%3E%3C/svg%3E"),
+    #DDF4FF;
+
+    background-repeat: repeat;
+
+    background-size: 180px 180px;
+    color:#2F5366;
+}
+
+body.summer .theme-container{
+
+    background:#EEF9FF;
+
+    background-image:
+        linear-gradient(#CFEFFF 1px, transparent 1px);
+
+    background-size:100% 36px;
+}
+
+body.summer .theme-container::before{
+
+    background:#4DA8DA;
+}
+
+body.summer .theme-container::after{
+
+    background:
+        radial-gradient(circle,
+        #7EC8E3 35%,
+        transparent 36%);
+
+    background-size:40px 60px;
+}
+
+body.summer #backBtn,
+body.summer #buyBtn{
+
+    background:#7EC8E3;
+    color:#FFFFFF;
+}
+
+body.summer #backBtn:hover,
+body.summer #buyBtn:hover{
+
+    background:#4DA8DA;
+}
+
+/* =========================
+   가을 테마
+========================= */
+
+body.autumn {
+
+    background:#F6EFE4;
+    color:#5C4033;
+}
+
+/* 전체 노트 */
+body.autumn .theme-container{
+
+    background:#FFF9F1;
+
+    background-image:
+        linear-gradient(#E7D7BF 1px, transparent 1px);
+
+    background-size:100% 36px;
+}
+
+/* 빨간 세로줄 */
+body.autumn .theme-container::before{
+
+    background:#D97B2D;
+}
+
+/* 스프링 장식 대신 단풍 느낌 점 */
+body.autumn .theme-container::after{
+
+    background:
+        radial-gradient(circle,
+        #C96A2B 35%,
+        transparent 36%);
+
+    background-size:40px 60px;
+}
+
+/* 카드 */
+body.autumn .progress-card,
+body.autumn .goal-container,
+body.autumn .eval-card,
+body.autumn .point-box,
+body.autumn .profile-box{
+
+    background:#FFFDF8;
+
+    border:1px solid #D8C2A8;
+
+    box-shadow:
+        0 4px 12px rgba(120, 80, 40, 0.08);
+}
+
+/* 버튼 */
+body.autumn button,
+body.autumn #backBtn,
+body.autumn #buyBtn{
+
+    background:#B56A3A;
+    color:#FFF8F0;
+}
+
+/* 버튼 hover */
+body.autumn button:hover,
+body.autumn #backBtn:hover,
+body.autumn #buyBtn:hover{
+
+    background:#D97B2D;
+}
+
+/* 진행률 바 */
+body.autumn .progress-fill{
+
+    background:linear-gradient(
+        90deg,
+        #D97B2D,
+        #E8A15B
+    );
+}
+
+/* 체크박스 */
+body.autumn .check-box{
+
+    border:2px solid #C98A4A;
+}
+
+body.autumn .task-item.checked .check-box{
+
+    background:#D97B2D;
+}
+
+/* 모달 */
+body.autumn .modal-content{
+
+    background:#fff;
+
+    border: none;
+}
+
+/* 선택된 테마 카드 */
+body.autumn .theme-card.active{
+
+    border:3px solid #D97B2D;
+
+    box-shadow:
+        0 0 15px rgba(217,123,45,0.25);
+}
+
 /* 테마 선택 페이지 내부 글씨색 고정 */
 body.default .theme-container,
 body.dark .theme-container,
 body.spring .theme-container,
-body.focus .theme-container {
+body.focus .theme-container,
+body.summer .theme-container,
+body.autumn .theme-container{
 
     color:#5C4033;
 }
@@ -490,10 +680,14 @@ body.default .theme-header h1,
 body.dark .theme-header h1,
 body.spring .theme-header h1,
 body.focus .theme-header h1,
+body.summer .theme-header h1,
+body.autumn .theme-header h1,
 body.default .theme-card h2,
 body.dark .theme-card h2,
 body.spring .theme-card h2,
-body.focus .theme-card h2 {
+body.focus .theme-card h2,
+body.summer .theme-card h2,
+body.autumn .theme-card h2 {
 
     color:#5C4033;
 }
@@ -502,10 +696,14 @@ body.default .theme-header p,
 body.dark .theme-header p,
 body.spring .theme-header p,
 body.focus .theme-header p,
+body.summer .theme-header p,
+body.autumn .theme-header p,
 body.default .theme-card p,
 body.dark .theme-card p,
 body.spring .theme-card p,
-body.focus .theme-card p {
+body.focus .theme-card p,
+body.summer .theme-card p, 
+body.autumn .theme-card p{
 
     color:#7A6253;
 }
@@ -620,6 +818,18 @@ body.focus .modal-content button:hover {
     background:#8FC9A5;
 }
 
+/* 여름 */
+body.summer .modal-content button {
+
+    background:#7EC8E3;
+    color:#FFFFFF;
+}
+
+body.summer .modal-content button:hover {
+
+    background:#4DA8DA;
+}
+
 /* =========================
    테마별 theme.html 글씨색
 ========================= */
@@ -651,6 +861,24 @@ body.focus .theme-header p {
     color: #7C8F80;
 }
 
+/* 여름 */
+body.summer .theme-header h1 {
+    color: #1E88B8;
+}
+
+body.summer .theme-header p {
+    color: #4F7385;
+}
+
+/* 가을 */
+body.autumn .theme-header h1 {
+    color: #B56A3A;
+}
+
+body.autumn .theme-header p {
+    color: #8A5A35;
+}
+
 /* =========================
    테마별 카드 hover
 ========================= */
@@ -673,4 +901,42 @@ body.focus .theme-header p {
 .theme-card[data-theme="focus"]:hover {
     transform: translateY(-5px);
     border-color: #A8D5BA;
+}
+
+.theme-card[data-theme="summer"]:hover {
+    transform: translateY(-5px);
+    border-color: #4DA8DA;
+}
+
+.theme-card[data-theme="autumn"]:hover {
+    transform: translateY(-5px);
+    border-color: #D97B2D;
+}
+
+/* =========================
+   테마 가격 표시
+========================= */
+
+.theme-card h2 {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+}
+
+.theme-price {
+
+    font-size:13px;
+
+    padding:4px 10px;
+
+    border-radius:12px;
+
+    background:#FFE0B2;
+
+    color:#8A4B1F;
+
+    font-weight:700;
 }

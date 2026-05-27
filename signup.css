@@ -42,6 +42,7 @@ body{
     top:0;
     bottom:0;
     width:40px;
+
     display:flex;
     flex-direction:column;
     justify-content:space-around;
@@ -62,10 +63,14 @@ h1{
     color:#5C4033;
 }
 
+/* 부제목 */
 .subtitle{
     text-align:center;
-    color:#A85C4D;
+    color:#5C4033;
     margin-bottom:30px;
+
+    font-size:15px;
+    opacity:0.9;
 }
 
 /* 입력 그룹 */
@@ -77,10 +82,13 @@ h1{
 input{
     width:100%;
     padding:10px;
+
     border:1px solid #C7D8C0;
     border-radius:6px;
+
     background:#FFFDF5;
     color:#5C4033;
+
     box-sizing:border-box;
 }
 
@@ -103,12 +111,18 @@ input{
 /* 버튼 스타일 */
 button{
     padding:10px 14px;
+
     border:none;
     border-radius:6px;
+
     background:#FFB67A;
     color:#5C4033;
+
     cursor:pointer;
+
     font-weight:bold;
+    font-size:13.5px;
+    letter-spacing:0px;
 }
 
 /* 회원가입 버튼 */
@@ -116,6 +130,9 @@ button{
     width:100%;
     margin-top:20px;
     padding:12px;
+
+    font-size:15px;
+    letter-spacing:0.2px;
 }
 
 /* 성공 메시지 */

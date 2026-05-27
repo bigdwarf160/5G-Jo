@@ -1,12 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // =============================
-    // 사용자 정보 가져오기 
+    // 저장된 테마 적용
     // =============================
     const currentUser =
         sessionStorage.getItem('userName') ||
         localStorage.getItem('userName');
 
+    const themeList = [
+        "default",
+        "dark",
+        "spring",
+        "focus",
+        "summer",
+        "autumn"
+    ];
+
+    document.body.classList.remove(...themeList);
+
+    if (currentUser) {
+
+        const userKey = currentUser.trim();
+
+        const savedTheme =
+            localStorage.getItem(`theme_${userKey}`) || "default";
+
+        document.body.classList.add(savedTheme);
+    }
+    
     // 로그인 안 되어있으면 로그인 페이지로 이동
     if (!currentUser) {
 
