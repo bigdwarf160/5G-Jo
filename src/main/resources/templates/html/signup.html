@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>회원가입</title>
-<link rel="stylesheet" href="../../assets/styles/signup.css">
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="../../assets/styles/signup.css">
+    <script defer src="/assets/scripts/signup.js"></script>
 </head>
 
 <body>
@@ -48,7 +49,8 @@
             <p id="emailMessage"></p>
 
             <div class="id-row">
-                <input type="text" class="input-field" id="codeInput" placeholder="인증번호 입력" maxlength="6" inputmode="numeric">
+                <input type="text" class="input-field" id="codeInput" placeholder="인증번호 입력" maxlength="6"
+                       inputmode="numeric">
                 <button type="button" onclick="checkCode()">인증하기</button>
             </div>
 
@@ -74,12 +76,11 @@
     </form>
 
     <p class="login-link">
-        이미 계정이 있으신가요? <a href="login.html">로그인</a>
+        이미 계정이 있으신가요? <a href="login">로그인</a>
     </p>
 
 </div>
 
-<script src="../../static/assets/scripts/signup.js"></script>
 
 </body>
 </html>

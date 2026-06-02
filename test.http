@@ -1,0 +1,11 @@
+POST http://localhost:8080/goal/recalculate
+Content-Type: application/json
+
+{
+  "totalGoal": 100,
+  "completedSoFar": 40,
+  "todayPlanned": 10,
+  "todayDone": 6,
+  "remainingDays": 5,
+  "difficultyPreference": 2
+}

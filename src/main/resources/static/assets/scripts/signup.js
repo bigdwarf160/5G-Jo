@@ -158,5 +158,5 @@ document.querySelector("form").addEventListener("submit", function(e){
     localStorage.setItem("loginUser", id);
 
     alert("회원가입 완료!");
-    location.href = "makeplan.html";
+    location.href = "makeplan";
 });
